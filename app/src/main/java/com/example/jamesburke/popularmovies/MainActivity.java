@@ -1,10 +1,14 @@
 package com.example.jamesburke.popularmovies;
 
+import android.content.AsyncTaskLoader;
+import android.nfc.NfcAdapter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 
@@ -18,17 +22,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        URL myUrl = NetworkUtils.buildURL("polularity.asc");
+        movieTask task = new movieTask();
+        task.execute();
+    }
 
-        String myString = "";
-        try {
-            myString = NetworkUtils.getResponseFromHttpUrl(myUrl);
-        } catch (IOException e){
-            Log.e("Main Activity", "Problem making the HTTP request.", e);
+
+
+    private class movieTask extends AsyncTask<URL, Void, String> {
+
+        @Override
+        protected String doInBackground(URL... urls) {
+            URL searchURL = NetworkUtils.buildURL("polularity.asc");
+            Log.i("Information", searchURL.toString());
+            String myString = "";
+            try {
+                myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
+            } catch (IOException e){
+                Log.e("Main Activity", "Problem making the HTTP request.", e);
+            }
+
+            return  myString;
         }
 
-        Log.i("Information", myString);
-    }
+
+        @Override
+        protected void onPostExecute(String myString) {
+            if (myString == null) {
+                return;
+            }
+            Log.i("Hello, there.", myString.substring(0, 14));
+            TextView myTextView = (TextView) findViewById(R.id.test_this);
+            myTextView.setText(myString);
+        }
+        }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
