@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 
@@ -52,9 +51,8 @@ public class MainActivity extends AppCompatActivity {
             if (myString == null) {
                 return;
             }
-            Log.i("Hello, there.", myString.substring(0, 14));
-            TextView myTextView = (TextView) findViewById(R.id.test_this);
-            myTextView.setText(myString);
+
+
         }
         }
 
