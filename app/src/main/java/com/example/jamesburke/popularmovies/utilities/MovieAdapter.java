@@ -19,7 +19,7 @@ public class MovieAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        
+
     }
 
 
