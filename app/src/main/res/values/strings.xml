@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">PopularMovies</string>
 
-    <string name="menu_1">by Popularity</string>
-    <string name="menu_2">by Rating</string>
-    <string name="menu_3">by Latest Date</string>
-    <string name="menu_4">by Alphabetical Order</string>
+    <string name="menu_1">by Title</string>
+    <string name="menu_2">by Popularity</string>
+    <string name="menu_3">by Release Date</string>
+    <string name="menu_4">by Revenue</string>
+
 </resources>

@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
@@ -14,6 +15,9 @@ import java.io.IOException;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
+
+    String mySort = "original_title.asc";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(URL... urls) {
-            URL searchURL = NetworkUtils.buildURL("polularity.asc");
+            URL searchURL = NetworkUtils.buildURL(mySort);
             Log.i("Information", searchURL.toString());
             String myString = "";
             try {
@@ -58,7 +62,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
+        inflater.inflate(R.menu.mymenu, menu);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        movieTask changeTask = new movieTask();
+        switch (item.getItemId()) {
+            case R.id.mytitle:
+                mySort = "original_title.asc";
+                changeTask.execute();
+                return true;
+            case R.id.popularity:
+                mySort = "popularity.desc";
+                changeTask.execute();
+                return true;
+            case R.id.release_date:
+                mySort = "release_date.asc";
+                changeTask.execute();
+                return true;
+            case R.id.revenue:
+                mySort = "revenue.desc";
+                changeTask.execute();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+
     }
 }
