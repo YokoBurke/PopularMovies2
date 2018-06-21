@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.GridView;
+import android.widget.Toast;
 
+import com.example.jamesburke.popularmovies.utilities.JsonUtils;
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 
 import java.io.IOException;
@@ -22,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GridView gridView = (GridView) findViewById(R.id.my_gridview);
 
         movieTask task = new movieTask();
         task.execute();
@@ -50,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(String myString) {
             if (myString == null) {
                 return;
+            } else {
+                JsonUtils.parseMovieData(myString);
+                Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
 
 
