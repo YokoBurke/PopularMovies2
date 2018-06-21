@@ -1,11 +1,14 @@
 package com.example.jamesburke.popularmovies;
 
+import android.content.AsyncTaskLoader;
+import android.nfc.NfcAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 
@@ -14,48 +17,44 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG = "MyActivity";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MovieAsyncTask task = new MovieAsyncTask();
+        movieTask task = new movieTask();
         task.execute();
-
     }
 
-    public class MovieAsyncTask extends AsyncTask<URL, Void, String> {
 
 
-        URL myUrl = NetworkUtils.buildURL("polularity.asc");
-        String myString = "";
+    private class movieTask extends AsyncTask<URL, Void, String> {
 
         @Override
-        protected String doInBackground(URL... params) {
-
-
+        protected String doInBackground(URL... urls) {
+            URL searchURL = NetworkUtils.buildURL("polularity.asc");
+            Log.i("Information", searchURL.toString());
+            String myString = "";
             try {
-                myString = NetworkUtils.getResponseFromHttpUrl(myUrl);
-            } catch (IOException e) {
+                myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
+            } catch (IOException e){
                 Log.e("Main Activity", "Problem making the HTTP request.", e);
             }
 
-            Log.i("Information", myString);
-            return myString;
+            return  myString;
         }
 
-        @Override
-        protected void onPostExecute(String githubSearchResults) {
 
+        @Override
+        protected void onPostExecute(String myString) {
             if (myString == null) {
                 return;
             }
+            Log.i("Hello, there.", myString.substring(0, 14));
+            TextView myTextView = (TextView) findViewById(R.id.test_this);
+            myTextView.setText(myString);
         }
-    }
-
-
+        }
 
 
     @Override
