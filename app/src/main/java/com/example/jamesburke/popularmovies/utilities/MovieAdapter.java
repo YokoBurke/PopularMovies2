@@ -1,27 +1,39 @@
 package com.example.jamesburke.popularmovies.utilities;
 
-import android.app.Activity;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-import java.util.ArrayList;
+import com.example.jamesburke.popularmovies.R;
 
-public class MovieAdapter extends ArrayAdapter {
+import java.util.List;
 
-    private static final String CLASS_NAME = MovieAdapter.class.getSimpleName();
+public class MovieAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    public MovieAdapter(Activity context, ArrayList<MovieData> movieData){
-        super(context, 0, movieData);
+    private List<MovieData> myMovieData;
+
+    public MovieAdapter(List<MovieData> theMovieData){
+        myMovieData = theMovieData;
     }
-
-    //https://github.com/udacity/ud839_CustomAdapter_Example/blob/master/app/src/main/java/com/example/android/flavor/AndroidFlavorAdapter.java
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        int myLayoutId = R.layout.image_list_item;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(myLayoutId, parent, false);
+        MyViewHolder movieViewHolder = new MyViewHolder(itemView);
+        return movieViewHolder;
 
     }
 
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        
+    }
 
-
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
 }
