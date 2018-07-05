@@ -3,6 +3,8 @@ package com.example.jamesburke.popularmovies;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,14 +13,23 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.jamesburke.popularmovies.utilities.JsonUtils;
+import com.example.jamesburke.popularmovies.utilities.MovieAdapter;
+import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     String mySort = "original_title.asc";
+
+    public ArrayList<MovieData> myMovieData;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
 
     @Override
@@ -26,10 +37,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridView gridView = (GridView) findViewById(R.id.my_gridview);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycle_view);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new GridLayoutManager(this, 2);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         movieTask task = new movieTask();
         task.execute();
+
+        mAdapter = new MovieAdapter(myMovieData);
+        mRecyclerView.setAdapter(mAdapter);
     }
 
 
@@ -56,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             if (myString == null) {
                 return;
             } else {
-                JsonUtils.parseMovieData(myString);
+                myMovieData = JsonUtils.parseMovieData(myString);
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
 
