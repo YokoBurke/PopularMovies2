@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.jamesburke.popularmovies.utilities.JsonUtils;
@@ -61,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
             String myString = "";
             try {
                 myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
+
             } catch (IOException e){
                 Log.e("Main Activity", "Problem making the HTTP request.", e);
             }
@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
             if (myString == null) {
                 return;
             } else {
+
                 myMovieData = JsonUtils.parseMovieData(myString);
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }

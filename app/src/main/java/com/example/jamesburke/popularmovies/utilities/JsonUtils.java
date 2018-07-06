@@ -29,15 +29,19 @@ public class JsonUtils {
 
                 JSONObject currentMovie = resultsArray.getJSONObject(i);
                 int jsonMovieId = currentMovie.getInt("id");
-                String jsonImageUrl = currentMovie.getString("backdrop_path");
+                String jsonImageUrl = currentMovie.getString("poster_path");
 
                 MovieData myMovieData = new MovieData(jsonImageUrl, jsonMovieId);
                 movieList.add(myMovieData);
+
+                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + jsonImageUrl);
+
 
             }
         } catch (JSONException e) {
             Log.e(CLASS_NAME, "Problem parsing the JSON results", e);
         }
+        Log.i("Movie Adap", Integer.toString(movieList.size()));
         return movieList;
     }
 
