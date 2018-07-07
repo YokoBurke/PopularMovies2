@@ -45,8 +45,7 @@ public class MainActivity extends AppCompatActivity {
         movieTask task = new movieTask();
         task.execute();
 
-        mAdapter = new MovieAdapter(myMovieData);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
 
@@ -78,9 +77,10 @@ public class MainActivity extends AppCompatActivity {
                 myMovieData = JsonUtils.parseMovieData(myString);
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
+            mAdapter = new MovieAdapter(myMovieData);
+            mRecyclerView.setAdapter(mAdapter);
 
-
-        }
+            }
         }
 
 
