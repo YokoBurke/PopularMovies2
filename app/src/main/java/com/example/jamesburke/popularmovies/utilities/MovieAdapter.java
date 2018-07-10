@@ -64,6 +64,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         Picasso.with(myContext).load(myMovieData.get(position).getMyUrl()).into(holder.myImageView);
+        int x = holder.myImageView.getWidth();
+        int y = holder.myImageView.getHeight();
+
+        Log.i("IMAGE SIZE", Integer.toString(x) + " " + Integer.toString(y));
     }
 
     @Override
