@@ -1,5 +1,6 @@
 package com.example.jamesburke.popularmovies;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -45,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
         movieTask task = new movieTask();
         task.execute();
 
-        mAdapter = new MovieAdapter(myMovieData);
-        mRecyclerView.setAdapter(mAdapter);
+
     }
 
 
@@ -81,9 +81,17 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
+            mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
+                @Override
+                public void onListItemClick(int clickedItemIndex) {
+                    Intent intent = new Intent(MainActivity.this, ChildActivity.class);
+                    intent.putExtra(Intent.EXTRA_TEXT, myMovieData);
+                    startActivity(intent);
+                }
+            });
+            mRecyclerView.setAdapter(mAdapter);
 
-
-        }
+            }
         }
 
 

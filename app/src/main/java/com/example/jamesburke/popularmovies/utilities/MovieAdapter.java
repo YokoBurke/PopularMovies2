@@ -1,54 +1,74 @@
 package com.example.jamesburke.popularmovies.utilities;
 
+import android.content.Context;
+import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jamesburke.popularmovies.MainActivity;
 import com.example.jamesburke.popularmovies.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder>{
 
     private List<MovieData> myMovieData;
+    private Context myContext;
+    final private ListItemClickListener mOnClickListener;
 
-    //constructor
-    public MovieAdapter(List<MovieData> theMovieData){
+    public interface ListItemClickListener{
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public MovieAdapter(Context mContext, List<MovieData> theMovieData, ListItemClickListener listener){
         myMovieData = theMovieData;
+        myContext = mContext;
+        mOnClickListener = listener;
 
     }
 
-    //View Holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView myTextView;
 
-        //constructor
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        public TextView myTextView;
+        public ImageView myImageView;
+
         public MyViewHolder(View itemView) {
             super(itemView);
             myTextView = (TextView) itemView.findViewById(R.id.info_text);
+            myImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
+        }
     }
+
+
 
     @Override
     public MovieAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+        int myLayoutId = R.layout.grid_item;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(myLayoutId, parent, false);
         MyViewHolder movieViewHolder = new MyViewHolder(itemView);
         return movieViewHolder;
+
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        final int myData;
-        myData = myMovieData.get(position).getMyMovieId();
-        Log.i("Movie Adapter", Integer.toString(myData));
-        holder.myTextView.setText(myData);
 
-
+        holder.myTextView.setText(myMovieData.get(position).getMyUrl());
+        Picasso.with(myContext).load(myMovieData.get(position).getMyUrl()).into(holder.myImageView);
     }
 
     @Override
@@ -57,6 +77,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         if (myMovieData == null){
             Log.i("Movie Adap", "Array is Null");
             return 0;
+
         }
 
         return myMovieData.size();
