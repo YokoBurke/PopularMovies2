@@ -1,14 +1,13 @@
 package com.example.jamesburke.popularmovies;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.utilities.MovieData;
-
-import org.w3c.dom.Text;
 
 public class ChildActivity extends AppCompatActivity {
 
@@ -37,7 +36,9 @@ public class ChildActivity extends AppCompatActivity {
 
         Intent childIntent = getIntent();
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            childMovieData = childIntent.getExtras();
+            childMovieData = (MovieData) childIntent.getSerializableExtra(Intent.EXTRA_TEXT);
+            Log.i("ChildActivity", "I made it!");
         }
+
     }
 }

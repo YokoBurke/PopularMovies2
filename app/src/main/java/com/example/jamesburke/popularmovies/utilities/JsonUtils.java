@@ -17,7 +17,7 @@ public class JsonUtils {
     public static String CLASS_NAME = JsonUtils.class.getSimpleName();
 
     final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    final static String IMAGE_SIZE = "w185";
+    final static String IMAGE_SIZE = "w500";
     static String file_path;
 
     public static ArrayList<MovieData> parseMovieData(String json) {

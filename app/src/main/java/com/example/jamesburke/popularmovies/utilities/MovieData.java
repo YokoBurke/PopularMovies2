@@ -1,6 +1,8 @@
 package com.example.jamesburke.popularmovies.utilities;
 
-public class MovieData {
+import java.io.Serializable;
+
+public class MovieData implements Serializable {
 
     String myUrl;
     int myMovieId;
