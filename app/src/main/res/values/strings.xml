@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">PopularMovies</string>
+    <string name="app_name">My Movie Data</string>
 
-    <string name="menu_1">by Title</string>
-    <string name="menu_2">by Popularity</string>
-    <string name="menu_3">by Release Date</string>
-    <string name="menu_4">by Revenue</string>
+    <string name="menu_1">US Highest Rating</string>
+    <string name="menu_2">Popular</string>
+    <string name="menu_3">Recently Released</string>
+    <string name="menu_4">Highest Revenue</string>
 
 </resources>

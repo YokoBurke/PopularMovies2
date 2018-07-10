@@ -23,14 +23,14 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String mySort = "original_title.asc";
+    String mySort = "popularity.desc";
+    String myCertCountry = "";
 
     public ArrayList<MovieData> myMovieData;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
         movieTask task = new movieTask();
         task.execute();
-
-
     }
 
 
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(URL... urls) {
-            URL searchURL = NetworkUtils.buildURL(mySort);
+            URL searchURL = NetworkUtils.buildURL(mySort, myCertCountry);
             Log.i("Information", searchURL.toString());
             String myString = "";
             try {
@@ -109,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
         movieTask changeTask = new movieTask();
         switch (item.getItemId()) {
             case R.id.mytitle:
-                mySort = "original_title.asc";
+                mySort = "vote_average.desc";
+                myCertCountry = "";
                 changeTask.execute();
                 return true;
             case R.id.popularity:
@@ -117,11 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 changeTask.execute();
                 return true;
             case R.id.release_date:
-                mySort = "release_date.asc";
+                mySort = "release_date.desc";
+                myCertCountry = "US";
                 changeTask.execute();
                 return true;
             case R.id.revenue:
                 mySort = "revenue.desc";
+                myCertCountry = "US";
                 changeTask.execute();
                 return true;
             default:

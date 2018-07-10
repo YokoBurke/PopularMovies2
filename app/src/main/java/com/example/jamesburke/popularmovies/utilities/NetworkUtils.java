@@ -20,12 +20,12 @@ public class NetworkUtils {
     final static String API_URL = "73e4a66f623745e5138464b4ac6fb93b";
 
     final static String PARAM_SORT = "sort_by";
-    final static String PARAM_PAGE = "page";
-    final static String pageNumber = "1";
+    final static String PARAM_COUNTRY = "certification_country";
 
-    public static URL buildURL(String sortOrder) {
+    public static URL buildURL(String sortOrder, String myCountry) {
 
         Uri builtUri = Uri.parse(MOVIEDB_BASE_URL + API_URL).buildUpon().appendQueryParameter(PARAM_SORT, sortOrder)
+                .appendQueryParameter(PARAM_COUNTRY, myCountry)
                 //.appendQueryParameter(PARAM_PAGE, pageNumber)
                 .build();
 
