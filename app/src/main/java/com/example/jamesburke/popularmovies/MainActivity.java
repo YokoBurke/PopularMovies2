@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 myMovieData = JsonUtils.parseMovieData(myString);
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
-            mAdapter = new MovieAdapter(myMovieData);
+            mAdapter = new MovieAdapter(MainActivity.this, myMovieData);
             mRecyclerView.setAdapter(mAdapter);
 
             }

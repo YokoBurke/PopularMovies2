@@ -16,6 +16,10 @@ public class JsonUtils {
 
     public static String CLASS_NAME = JsonUtils.class.getSimpleName();
 
+    final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    final static String IMAGE_SIZE = "w185";
+    static String file_path;
+
     public static ArrayList<MovieData> parseMovieData(String json) {
 
         ArrayList<MovieData> movieList = new ArrayList<MovieData>();
@@ -29,12 +33,17 @@ public class JsonUtils {
 
                 JSONObject currentMovie = resultsArray.getJSONObject(i);
                 int jsonMovieId = currentMovie.getInt("id");
-                String jsonImageUrl = currentMovie.getString("poster_path");
 
-                MovieData myMovieData = new MovieData(jsonImageUrl, jsonMovieId);
+                if (currentMovie.getString("poster_path") != "null") {
+                    file_path = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("poster_path");
+                } else {
+                    file_path = "null";
+                }
+
+                MovieData myMovieData = new MovieData(file_path, jsonMovieId);
                 movieList.add(myMovieData);
 
-                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + jsonImageUrl);
+                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + file_path);
 
 
             }

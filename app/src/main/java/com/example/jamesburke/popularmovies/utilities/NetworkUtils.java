@@ -26,7 +26,7 @@ public class NetworkUtils {
     public static URL buildURL(String sortOrder) {
 
         Uri builtUri = Uri.parse(MOVIEDB_BASE_URL + API_URL).buildUpon().appendQueryParameter(PARAM_SORT, sortOrder)
-                .appendQueryParameter(PARAM_PAGE, pageNumber)
+                //.appendQueryParameter(PARAM_PAGE, pageNumber)
                 .build();
 
         URL url = null;
