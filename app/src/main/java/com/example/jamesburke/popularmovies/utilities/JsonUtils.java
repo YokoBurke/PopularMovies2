@@ -41,7 +41,7 @@ public class JsonUtils {
         } catch (JSONException e) {
             Log.e(CLASS_NAME, "Problem parsing the JSON results", e);
         }
-        Log.i("Movie Adap", Integer.toString(movieList.size()));
+
         return movieList;
     }
 

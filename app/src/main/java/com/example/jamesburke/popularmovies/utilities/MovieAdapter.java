@@ -15,15 +15,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private List<MovieData> myMovieData;
 
+    //constructor
     public MovieAdapter(List<MovieData> theMovieData){
         myMovieData = theMovieData;
 
     }
 
-
+    //View Holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView myTextView;
 
+        //constructor
         public MyViewHolder(View itemView) {
             super(itemView);
             myTextView = (TextView) itemView.findViewById(R.id.info_text);
@@ -34,17 +36,18 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     @Override
     public MovieAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        int myLayoutId = R.layout.grid_item;
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(myLayoutId, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
         MyViewHolder movieViewHolder = new MyViewHolder(itemView);
         return movieViewHolder;
-
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        final int myData;
+        myData = myMovieData.get(position).getMyMovieId();
+        Log.i("Movie Adapter", Integer.toString(myData));
+        holder.myTextView.setText(myData);
 
-        holder.myTextView.setText(myMovieData.get(position).getMyUrl());
 
     }
 
@@ -54,7 +57,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         if (myMovieData == null){
             Log.i("Movie Adap", "Array is Null");
             return 0;
-
         }
 
         return myMovieData.size();
