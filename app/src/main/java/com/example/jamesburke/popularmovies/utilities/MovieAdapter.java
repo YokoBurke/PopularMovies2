@@ -20,15 +20,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
     private List<MovieData> myMovieData;
     private Context myContext;
+    final private ListItemClickListener mOnClickListener;
 
-    public MovieAdapter(Context mContext, List<MovieData> theMovieData){
+    public interface ListItemClickListener{
+        void onListItemClick(int clickedItemIndex);
+    }
+
+    public MovieAdapter(Context mContext, List<MovieData> theMovieData, ListItemClickListener listener){
         myMovieData = theMovieData;
         myContext = mContext;
+        mOnClickListener = listener;
 
     }
 
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         public TextView myTextView;
         public ImageView myImageView;
 
@@ -36,9 +42,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             super(itemView);
             myTextView = (TextView) itemView.findViewById(R.id.info_text);
             myImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition);
+        }
     }
+
+
 
     @Override
     public MovieAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
