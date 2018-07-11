@@ -17,7 +17,7 @@ public class NetworkUtils {
     final static String CLASS_NAME = String.class.getSimpleName();
 
     final static String MOVIEDB_BASE_URL = "https://api.themoviedb.org/3/discover/movie?api_key=";
-    final static String API_URL = "";
+    final static String API_URL = "73e4a66f623745e5138464b4ac6fb93b";
 
     final static String PARAM_SORT = "sort_by";
     final static String PARAM_COUNTRY = "certification_country";

@@ -109,20 +109,24 @@ public class MainActivity extends AppCompatActivity {
             case R.id.mytitle:
                 mySort = "vote_average.desc";
                 myCertCountry = "";
+                setTitle("Highest Rating");
                 changeTask.execute();
                 return true;
             case R.id.popularity:
                 mySort = "popularity.desc";
+                setTitle("Popular Movies");
                 changeTask.execute();
                 return true;
             case R.id.release_date:
                 mySort = "release_date.desc";
                 myCertCountry = "US";
+                setTitle("Recently Released in US");
                 changeTask.execute();
                 return true;
             case R.id.revenue:
                 mySort = "revenue.desc";
                 myCertCountry = "US";
+                setTitle("Highest Revenue in US");
                 changeTask.execute();
                 return true;
             default:

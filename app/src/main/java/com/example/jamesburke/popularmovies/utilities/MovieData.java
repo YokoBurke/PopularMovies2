@@ -4,16 +4,28 @@ import java.io.Serializable;
 
 public class MovieData implements Serializable {
 
-    String myUrl;
+    String myPosterUrl;
     int myMovieId;
+    String myTitle;
+    String myReleaseDate;
+    Double myVoteAverage;
+    String myOverview;
+    String myBDUrl;
 
-    public MovieData(String url, int movieID) {
-        myUrl = url;
+    public MovieData(String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
+                     Double movieVoteAverage, String movieOverview, String backdropUrl) {
+
+        myPosterUrl = posterUrl;
         myMovieId = movieID;
+        myTitle = movieTitle;
+        myReleaseDate = movieReleaseDate;
+        myVoteAverage = movieVoteAverage;
+        myOverview = movieOverview;
+        myBDUrl = backdropUrl;
     }
 
     public String getMyUrl() {
-        return myUrl;
+        return myPosterUrl;
     }
 
     public int getMyMovieId() {
