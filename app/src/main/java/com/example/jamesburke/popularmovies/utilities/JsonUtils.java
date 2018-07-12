@@ -18,7 +18,8 @@ public class JsonUtils {
 
     final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     final static String IMAGE_SIZE = "w500";
-    static String file_path;
+    static String file_path_poster;
+    static String file_path_backdrop;
 
     public static ArrayList<MovieData> parseMovieData(String json) {
 
@@ -33,17 +34,27 @@ public class JsonUtils {
 
                 JSONObject currentMovie = resultsArray.getJSONObject(i);
                 int jsonMovieId = currentMovie.getInt("id");
+                String jsonMovieTitle = currentMovie.getString("title");
+                String jsonMovieDate = currentMovie.getString("release_date");
+                Double jsonMovieAverage = currentMovie.getDouble("vote_average");
+                String jsonMovieOverview = currentMovie.getString("overview");
 
-                if (currentMovie.getString("poster_path") != "null") {
-                    file_path = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("poster_path");
+                if (currentMovie.getString("backdrop_path") != "null") {
+                    file_path_backdrop = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("backdrop_path");
                 } else {
-                    file_path = "null";
+                    file_path_backdrop = "null";
                 }
 
-                MovieData myMovieData = new MovieData(file_path, jsonMovieId);
+                if (currentMovie.getString("poster_path") != "null") {
+                    file_path_poster = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("poster_path");
+                } else {
+                    file_path_poster = "null";
+                }
+
+                MovieData myMovieData = new MovieData(file_path_poster, jsonMovieId);
                 movieList.add(myMovieData);
 
-                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + file_path);
+                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + file_path_poster);
 
 
             }
