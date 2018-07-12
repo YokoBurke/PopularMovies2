@@ -36,7 +36,7 @@ public class ChildActivity extends AppCompatActivity {
 
         Intent childIntent = getIntent();
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            childMovieData = (MovieData) childIntent.getSerializableExtra(Intent.EXTRA_TEXT);
+            childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
             Log.i("ChildActivity", "I made it!");
         }
 
