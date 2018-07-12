@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             } else {
 
                 myMovieData = JsonUtils.parseMovieData(myString);
-                Log.i("Main Activity", Integer.toString(myMovieData.size()));
+
 
 
                 Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
