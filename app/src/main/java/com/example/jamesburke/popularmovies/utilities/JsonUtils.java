@@ -17,7 +17,8 @@ public class JsonUtils {
     public static String CLASS_NAME = JsonUtils.class.getSimpleName();
 
     final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    final static String IMAGE_SIZE = "w500";
+    final static String IMAGE_SIZE_POSTER = "w500";
+    final static String IMAGE_SIZE_BACKDROP = "original";
     static String file_path_poster;
     static String file_path_backdrop;
 
@@ -40,13 +41,13 @@ public class JsonUtils {
                 String jsonMovieOverview = currentMovie.getString("overview");
 
                 if (currentMovie.getString("backdrop_path") != "null") {
-                    file_path_backdrop = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("backdrop_path");
+                    file_path_backdrop = IMAGE_BASE_URL + IMAGE_SIZE_BACKDROP + currentMovie.getString("backdrop_path");
                 } else {
                     file_path_backdrop = "null";
                 }
 
                 if (currentMovie.getString("poster_path") != "null") {
-                    file_path_poster = IMAGE_BASE_URL + IMAGE_SIZE + currentMovie.getString("poster_path");
+                    file_path_poster = IMAGE_BASE_URL + IMAGE_SIZE_POSTER + currentMovie.getString("poster_path");
                 } else {
                     file_path_poster = "null";
                 }
