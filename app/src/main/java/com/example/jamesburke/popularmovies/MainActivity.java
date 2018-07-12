@@ -1,6 +1,5 @@
 package com.example.jamesburke.popularmovies;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -82,9 +81,9 @@ public class MainActivity extends AppCompatActivity {
             mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
                 @Override
                 public void onListItemClick(int clickedItemIndex) {
-                    Intent intent = new Intent(MainActivity.this, ChildActivity.class);
+                    /* Intent intent = new Intent(MainActivity.this, ChildActivity.class);
                     intent.putExtra(Intent.EXTRA_TEXT, myMovieData);
-                    startActivity(intent);
+                    startActivity(intent); */
                 }
             });
             mRecyclerView.setAdapter(mAdapter);

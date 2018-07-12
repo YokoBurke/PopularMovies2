@@ -38,9 +38,24 @@ public class MovieData implements Parcelable {
     public String getMyUrl() {
         return myPosterUrl;
     }
-
     public int getMyMovieId() {
         return myMovieId;
+    }
+    public String getMyTitle() {
+        return myTitle;
+    }
+    public String getMyReleaseDate() { return myReleaseDate; }
+
+    public Double getMyVoteAverage() {
+        return myVoteAverage;
+    }
+
+    public String getMyOverview() {
+        return myOverview;
+    }
+
+    public String getMyBDUrl() {
+        return myBDUrl;
     }
 
     @Override

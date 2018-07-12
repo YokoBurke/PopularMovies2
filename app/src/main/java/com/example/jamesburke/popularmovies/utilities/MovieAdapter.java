@@ -1,6 +1,7 @@
 package com.example.jamesburke.popularmovies.utilities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
 import com.squareup.picasso.Picasso;
 
@@ -45,6 +47,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         public void onClick(View v) {
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
+
+            Intent intent = new Intent(myContext, ChildActivity.class);
+            intent.putExtra(Intent.EXTRA_TEXT, myMovieData.get(clickedPosition));
+            Log.i("Title is this", myMovieData.get(clickedPosition).getMyTitle());
+            myContext.startActivity(intent);
         }
     }
 
