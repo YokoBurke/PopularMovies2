@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
@@ -36,10 +37,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public ImageView myImageView;
+        public TextView myTextView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             myImageView = (ImageView) itemView.findViewById(R.id.info_image);
+            myTextView = (TextView) itemView.findViewById(R.id.info_title);
             itemView.setOnClickListener(this);
         }
 
@@ -71,15 +74,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
 
         String myURL = myMovieData.get(position).getMyUrl();
+        String myTitle = myMovieData.get(position).getMyTitle();
         if (myURL.substring(myURL.length()-4) == "null"){
             holder.myImageView.setImageResource(R.drawable.baseline_image_black_48);
         }else {
             Picasso.with(myContext).load(myMovieData.get(position).getMyUrl()).into(holder.myImageView);
-            int x = holder.myImageView.getWidth();
-            int y = holder.myImageView.getHeight();
 
-            Log.i("IMAGE SIZE", Integer.toString(x) + " " + Integer.toString(y));
         }
+
+        holder.myTextView.setText(myTitle);
+
     }
 
     @Override
