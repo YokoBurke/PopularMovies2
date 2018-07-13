@@ -51,7 +51,7 @@ public class JsonUtils {
                     file_path_poster = "null";
                 }
 
-                MovieData myMovieData = new MovieData(file_path_poster, jsonMovieId);
+                MovieData myMovieData = new MovieData(file_path_poster, jsonMovieId, jsonMovieTitle, jsonMovieDate, jsonMovieAverage, jsonMovieOverview, file_path_backdrop);
                 movieList.add(myMovieData);
 
                 Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + file_path_poster);
