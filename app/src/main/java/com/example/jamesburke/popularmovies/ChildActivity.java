@@ -3,6 +3,7 @@ package com.example.jamesburke.popularmovies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class ChildActivity extends AppCompatActivity {
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
             MovieData childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
 
+            Log.i("BackdropURL", childMovieData.getMyBDUrl());
             Picasso.with(this).load(childMovieData.getMyUrl()).into(mPoster);
             Picasso.with(this).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
