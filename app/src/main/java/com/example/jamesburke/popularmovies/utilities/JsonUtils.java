@@ -18,7 +18,7 @@ public class JsonUtils {
 
     final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     final static String IMAGE_SIZE_POSTER = "w500";
-    final static String IMAGE_SIZE_BACKDROP = "original";
+    final static String IMAGE_SIZE_BACKDROP = "w1280";
     static String file_path_poster;
     static String file_path_backdrop;
 
