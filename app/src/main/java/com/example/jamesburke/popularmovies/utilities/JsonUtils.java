@@ -8,19 +8,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/**
- * Created by jamesburke on 6/19/18.
- */
-
 public class JsonUtils {
 
-    public static String CLASS_NAME = JsonUtils.class.getSimpleName();
+    private static String CLASS_NAME = JsonUtils.class.getSimpleName();
 
-    final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
-    final static String IMAGE_SIZE_POSTER = "w500";
-    final static String IMAGE_SIZE_BACKDROP = "w1280";
-    static String file_path_poster;
-    static String file_path_backdrop;
+    private final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
+    private final static String IMAGE_SIZE_POSTER = "w500";
+    private final static String IMAGE_SIZE_BACKDROP = "w1280";
+    private static String file_path_poster;
+    private static String file_path_backdrop;
 
     public static ArrayList<MovieData> parseMovieData(String json) {
 
@@ -54,9 +50,6 @@ public class JsonUtils {
 
                 MovieData myMovieData = new MovieData(file_path_poster, jsonMovieId, jsonMovieTitle, jsonMovieDate, jsonMovieAverage, jsonMovieOverview, file_path_backdrop);
                 movieList.add(myMovieData);
-
-                Log.i("Here is JSON UTil", Integer.toString(jsonMovieId) + " " + file_path_poster +
-                        " " + jsonMovieTitle +" " + jsonMovieDate);
 
 
             }

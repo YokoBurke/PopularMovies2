@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.jamesburke.popularmovies.ChildActivity"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    tools:context="com.example.jamesburke.popularmovies.ChildActivity">
 
     <ImageView
         android:id="@+id/child_backdrop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitStart"/>
-
-    <LinearLayout
-        android:paddingRight="4dp"
-        android:paddingLeft="4dp"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/child_title"
         style="@style/child_movie_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/child_backdrop"
+        android:paddingLeft="4dp" />
+
+<LinearLayout
+    android:layout_below="@id/child_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <ImageView
+        android:id="@+id/child_poster"
+        android:paddingLeft="4dp"
+        android:layout_gravity="top"
+        android:layout_width="100dp"
+        android:layout_height="fill_parent"/>
+
+        <LinearLayout
+            android:id="@+id/child_movie_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/child_title"
+            android:layout_toRightOf="@id/child_poster"
+            android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +52,7 @@
         style="@style/child_movie_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Release Date: "/>
+        android:text="@string/child_release_date_subject"/>
 
     <TextView
         android:id="@+id/child_release_date"
@@ -57,7 +72,7 @@
         style="@style/child_movie_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vote Average"/>
+        android:text="@string/child_vote_average_subject"/>
 
     <TextView
         android:id="@+id/child_vote_average"
@@ -66,14 +81,17 @@
         android:layout_height="wrap_content" />
 
     </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
     <TextView
         android:id="@+id/child_plot_subject"
         style="@style/child_movie_subject"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/child_vote_average_subject"
-        android:text="Plot Synopsis: "/>
+        android:text="@string/child_movie_content"/>
 
     <TextView
         android:id="@+id/child_plot"
@@ -81,13 +99,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/child_poster"
-            android:layout_gravity="center"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"/>
-
+            </LinearLayout>
+        </LinearLayout>
 </LinearLayout>
+    </RelativeLayout>
+
+

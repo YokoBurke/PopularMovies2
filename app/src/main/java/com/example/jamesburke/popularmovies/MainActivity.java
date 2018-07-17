@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jamesburke.popularmovies.utilities.JsonUtils;
@@ -22,14 +24,16 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    String mySort = "popularity.desc";
-    String myCertCountry = "";
+    private String mySort = "popularity.desc";
+    private String myCertCountry = "";
 
-    public ArrayList<MovieData> myMovieData;
+    private ArrayList<MovieData> myMovieData;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    private TextView emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycle_view);
         mRecyclerView.setHasFixedSize(true);
+
+        emptyView = (TextView) findViewById(R.id.empty_view);
 
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -58,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
 
+
             } catch (IOException e){
                 Log.e("Main Activity", "Problem making the HTTP request.", e);
             }
@@ -68,15 +75,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String myString) {
-            if (myString == null) {
+            if (myString == "") {
+
+                mRecyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
                 return;
             } else {
 
+                mRecyclerView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
                 myMovieData = JsonUtils.parseMovieData(myString);
 
-
-
-                Toast.makeText(getApplicationContext(), "Success!!", Toast.LENGTH_LONG).show();
             }
             mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
                 @Override

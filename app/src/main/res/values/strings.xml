@@ -6,4 +6,10 @@
     <string name="menu_3">Recently Released</string>
     <string name="menu_4">Highest Revenue</string>
 
+    <string name="child_release_date_subject">Release Date: </string>
+    <string name="child_vote_average_subject">Vote Average: </string>
+    <string name="child_movie_content">Plot Synopsis: </string>
+
+    <string name="main_empty_view">No Data Available</string>
+
 </resources>
