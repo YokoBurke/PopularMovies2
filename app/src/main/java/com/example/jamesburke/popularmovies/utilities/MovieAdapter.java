@@ -16,25 +16,24 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder>{
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
 
     private List<MovieData> myMovieData;
     private Context myContext;
     final private ListItemClickListener mOnClickListener;
 
-    public interface ListItemClickListener{
+    public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
     }
 
-    public MovieAdapter(Context mContext, List<MovieData> theMovieData, ListItemClickListener listener){
+    public MovieAdapter(Context mContext, List<MovieData> theMovieData, ListItemClickListener listener) {
         myMovieData = theMovieData;
         myContext = mContext;
         mOnClickListener = listener;
 
     }
 
-
-    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView myImageView;
         public TextView myTextView;
@@ -59,7 +58,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     }
 
 
-
     @Override
     public MovieAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -75,9 +73,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
         String myURL = myMovieData.get(position).getMyUrl();
         String myTitle = myMovieData.get(position).getMyTitle();
-        if (myURL.substring(myURL.length()-4) == "null"){
+        if (myURL.substring(myURL.length() - 4) == "null") {
             holder.myImageView.setImageResource(R.drawable.baseline_image_black_48);
-        }else {
+        } else {
             Picasso.with(myContext).load(myMovieData.get(position).getMyUrl()).into(holder.myImageView);
 
         }
@@ -89,7 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     @Override
     public int getItemCount() {
 
-        if (myMovieData == null){
+        if (myMovieData == null) {
             Log.i("Movie Adap", "Array is Null");
             return 0;
 

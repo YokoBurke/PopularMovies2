@@ -19,7 +19,6 @@ public class ChildActivity extends AppCompatActivity {
     private TextView mVoteAverage;
     private TextView mPlot;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +38,6 @@ public class ChildActivity extends AppCompatActivity {
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
             MovieData childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
 
-            Log.i("BackdropURL", childMovieData.getMyBDUrl());
             Picasso.with(this).load(childMovieData.getMyUrl()).into(mPoster);
             Picasso.with(this).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
