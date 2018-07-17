@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.jamesburke.popularmovies.utilities.JsonUtils;
 import com.example.jamesburke.popularmovies.utilities.MovieAdapter;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String mySort = "popularity.desc";
+    private String selectedData = "popular";
     private String myCertCountry = "";
 
     private ArrayList<MovieData> myMovieData;
@@ -58,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected String doInBackground(URL... urls) {
-            URL searchURL = NetworkUtils.buildURL(mySort, myCertCountry);
+            URL searchURL = NetworkUtils.buildURL(selectedData);
             Log.i("Information", searchURL.toString());
             String myString = "";
             try {
@@ -115,26 +114,27 @@ public class MainActivity extends AppCompatActivity {
         movieTask changeTask = new movieTask();
         switch (item.getItemId()) {
             case R.id.mytitle:
-                mySort = "vote_average.desc";
-                myCertCountry = "";
-                setTitle("Highest Rating");
+                selectedData = "top_rate";
+                Log.i("Main", selectedData);
+                setTitle("Top Rated");
                 changeTask.execute();
                 return true;
             case R.id.popularity:
-                mySort = "popularity.desc";
-                setTitle("Popular Movies");
+                selectedData = "popular";
+                Log.i("Main", selectedData);
+                setTitle("Popular");
                 changeTask.execute();
                 return true;
-            case R.id.release_date:
-                mySort = "release_date.desc";
-                myCertCountry = "US";
-                setTitle("Recently Released in US");
+            case R.id.upcoming:
+                selectedData = "upcoming";
+                Log.i("Main", selectedData);
+                setTitle("Upcoming");
                 changeTask.execute();
                 return true;
-            case R.id.revenue:
-                mySort = "revenue.desc";
-                myCertCountry = "US";
-                setTitle("Highest Revenue in US");
+            case R.id.now_playing:
+                selectedData = "now_playing";
+                Log.i("Main", selectedData);
+                setTitle("Now Playing");
                 changeTask.execute();
                 return true;
             default:

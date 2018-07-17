@@ -7,9 +7,9 @@
         android:id="@+id/popularity"
         android:title="@string/menu_2" />
     <item
-        android:id="@+id/release_date"
+        android:id="@+id/upcoming"
         android:title="@string/menu_3" />
     <item
-        android:id="@+id/revenue"
+        android:id="@+id/now_playing"
         android:title="@string/menu_4" />
 </menu>

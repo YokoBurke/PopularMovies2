@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">My Movie Data</string>
 
-    <string name="menu_1">US Highest Rating</string>
+    <string name="menu_1">Top Rated</string>
     <string name="menu_2">Popular</string>
-    <string name="menu_3">Recently Released</string>
-    <string name="menu_4">Highest Revenue</string>
+    <string name="menu_3">Upcoming</string>
+    <string name="menu_4">Now Playing</string>
 
     <string name="child_release_date_subject">Release Date: </string>
     <string name="child_vote_average_subject">Vote Average: </string>

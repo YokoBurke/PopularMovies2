@@ -16,18 +16,31 @@ public class NetworkUtils {
 
     final static String CLASS_NAME = String.class.getSimpleName();
 
-    final static String MOVIEDB_BASE_URL = "https://api.themoviedb.org/3/discover/movie?api_key=";
+    final static String MOVIE_POPULAR_BASE_URL = "https://api.themoviedb.org/3/movie/popular?api_key=";
+    final static String MOVIE_TOP_RATE_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated?api_key=";
+    final static String MOVIE_UPCOMING_BASE_URL = "https://api.themoviedb.org/3/movie/upcoming?api_key=";
+    final static String MOVIE_NOW_PLAYING_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=";
     final static String API_URL = "73e4a66f623745e5138464b4ac6fb93b";
 
-    final static String PARAM_SORT = "sort_by";
-    final static String PARAM_COUNTRY = "certification_country";
 
-    public static URL buildURL(String sortOrder, String myCountry) {
 
-        Uri builtUri = Uri.parse(MOVIEDB_BASE_URL + API_URL).buildUpon().appendQueryParameter(PARAM_SORT, sortOrder)
-                .appendQueryParameter(PARAM_COUNTRY, myCountry)
-                //.appendQueryParameter(PARAM_PAGE, pageNumber)
-                .build();
+
+    public static URL buildURL(String selectedData) {
+
+        String selectedBase = "";
+        Log.i("Netowrk Utils", selectedData);
+        switch (selectedData) {
+            case "top_rate": selectedBase = MOVIE_TOP_RATE_BASE_URL;
+                break;
+            case "popular": selectedBase = MOVIE_POPULAR_BASE_URL;
+                break;
+            case "upcoming": selectedBase = MOVIE_UPCOMING_BASE_URL;
+                break;
+            case "now_playing": selectedBase = MOVIE_NOW_PLAYING_BASE_URL;
+                break;
+        }
+
+        Uri builtUri = Uri.parse(selectedBase + API_URL);
 
         URL url = null;
         try {
