@@ -2,6 +2,11 @@ package com.example.jamesburke.popularmovies;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,8 +26,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
+    private static final int MOVIE_SEARCH_LOADER = 125;
     private String selectedData = "popular";
     private String myCertCountry = "";
 
@@ -51,6 +57,33 @@ public class MainActivity extends AppCompatActivity {
         task.execute();
     }
 
+    @NonNull
+    @Override
+    public Loader<String> onCreateLoader(int id, @Nullable final Bundle args) {
+        return new AsyncTaskLoader<String>(this) {
+
+            @Override
+            public void onStartLoading() {
+                forceLoad();
+            }
+
+            @Nullable
+            @Override
+            public String loadInBackground() {
+                return null;
+            }
+        }
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<String> loader) {
+
+    }
 
 
     private class movieTask extends AsyncTask<URL, Void, String> {
