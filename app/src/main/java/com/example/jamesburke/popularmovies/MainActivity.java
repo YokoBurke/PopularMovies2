@@ -1,6 +1,5 @@
 package com.example.jamesburke.popularmovies;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mLayoutManager = new GridLayoutManager(this, 2);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        movieTask task = new movieTask();
-        task.execute();
+        getSupportLoaderManager().initLoader(MOVIE_SEARCH_LOADER, null, this);
+
     }
 
     @NonNull
@@ -70,15 +69,47 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Nullable
             @Override
             public String loadInBackground() {
-                return null;
+                URL searchURL = NetworkUtils.buildURL(selectedData);
+                Log.i("Information", searchURL.toString());
+                String myString = "";
+                try {
+                    myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
+
+
+                } catch (IOException e){
+                    Log.e("Main Activity", "Problem making the HTTP request.", e);
+                }
+
+                return  myString;
             }
-        }
+        };
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String data) {
 
+        if (data == "") {
+
+            mRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+            return;
+        } else {
+
+            mRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+            myMovieData = JsonUtils.parseMovieData(data);
+
+        }
+        mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
+            @Override
+            public void onListItemClick(int clickedItemIndex) {
+
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
+
     }
+
 
     @Override
     public void onLoaderReset(@NonNull Loader<String> loader) {
@@ -86,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
 
-    private class movieTask extends AsyncTask<URL, Void, String> {
+    /* private class movieTask extends AsyncTask<URL, Void, String> {
 
         @Override
         protected String doInBackground(URL... urls) {
@@ -122,15 +153,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
                 @Override
                 public void onListItemClick(int clickedItemIndex) {
-                    /* Intent intent = new Intent(MainActivity.this, ChildActivity.class);
-                    intent.putExtra(Intent.EXTRA_TEXT, myMovieData);
-                    startActivity(intent); */
+
                 }
             });
             mRecyclerView.setAdapter(mAdapter);
 
             }
-        }
+        } */
 
 
     @Override
@@ -144,31 +173,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        movieTask changeTask = new movieTask();
+
         switch (item.getItemId()) {
             case R.id.mytitle:
                 selectedData = "top_rate";
                 Log.i("Main", selectedData);
                 setTitle("Top Rated");
-                changeTask.execute();
+
                 return true;
             case R.id.popularity:
                 selectedData = "popular";
                 Log.i("Main", selectedData);
                 setTitle("Popular");
-                changeTask.execute();
+
                 return true;
             case R.id.upcoming:
                 selectedData = "upcoming";
                 Log.i("Main", selectedData);
                 setTitle("Upcoming");
-                changeTask.execute();
+
                 return true;
             case R.id.now_playing:
                 selectedData = "now_playing";
                 Log.i("Main", selectedData);
                 setTitle("Now Playing");
-                changeTask.execute();
+
                 return true;
             default:
                 return super.onContextItemSelected(item);
