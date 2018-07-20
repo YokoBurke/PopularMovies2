@@ -64,7 +64,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             @Override
             public void onStartLoading() {
-                forceLoad();
+
+                if (mMovieJson != null) {
+                    deliverResult(mMovieJson);
+                } else {
+                    forceLoad();
+
+                }
             }
 
             @Nullable
@@ -81,6 +87,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 }
 
                 return  myString;
+            }
+
+            @Override
+            public void deliverResult(String movieJson){
+                mMovieJson = movieJson;
+                super.deliverResult(movieJson);
             }
         };
     }
@@ -115,51 +127,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(@NonNull Loader<String> loader) {
 
     }
-
-
-    /* private class movieTask extends AsyncTask<URL, Void, String> {
-
-        @Override
-        protected String doInBackground(URL... urls) {
-            URL searchURL = NetworkUtils.buildURL(selectedData);
-            Log.i("Information", searchURL.toString());
-            String myString = "";
-            try {
-                myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
-
-
-            } catch (IOException e){
-                Log.e("Main Activity", "Problem making the HTTP request.", e);
-            }
-
-            return  myString;
-        }
-
-
-        @Override
-        protected void onPostExecute(String myString) {
-            if (myString == "") {
-
-                mRecyclerView.setVisibility(View.GONE);
-                emptyView.setVisibility(View.VISIBLE);
-                return;
-            } else {
-
-                mRecyclerView.setVisibility(View.VISIBLE);
-                emptyView.setVisibility(View.GONE);
-                myMovieData = JsonUtils.parseMovieData(myString);
-
-            }
-            mAdapter = new MovieAdapter(MainActivity.this, myMovieData, new MovieAdapter.ListItemClickListener() {
-                @Override
-                public void onListItemClick(int clickedItemIndex) {
-
-                }
-            });
-            mRecyclerView.setAdapter(mAdapter);
-
-            }
-        } */
 
 
     @Override
