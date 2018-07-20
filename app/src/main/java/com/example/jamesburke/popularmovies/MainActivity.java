@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int MOVIE_SEARCH_LOADER = 125;
     private String selectedData = "popular";
-    private String myCertCountry = "";
 
     private ArrayList<MovieData> myMovieData;
 
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<String> onCreateLoader(int id, @Nullable final Bundle args) {
         return new AsyncTaskLoader<String>(this) {
 
+            String mMovieJson;
+
             @Override
             public void onStartLoading() {
                 forceLoad();
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public String loadInBackground() {
                 URL searchURL = NetworkUtils.buildURL(selectedData);
-                Log.i("Information", searchURL.toString());
                 String myString = "";
                 try {
                     myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
@@ -179,25 +179,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 selectedData = "top_rate";
                 Log.i("Main", selectedData);
                 setTitle("Top Rated");
-
+                getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
                 return true;
             case R.id.popularity:
                 selectedData = "popular";
                 Log.i("Main", selectedData);
                 setTitle("Popular");
-
+                getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
                 return true;
             case R.id.upcoming:
                 selectedData = "upcoming";
                 Log.i("Main", selectedData);
                 setTitle("Upcoming");
-
+                getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
                 return true;
             case R.id.now_playing:
                 selectedData = "now_playing";
                 Log.i("Main", selectedData);
                 setTitle("Now Playing");
-
+                getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
                 return true;
             default:
                 return super.onContextItemSelected(item);
