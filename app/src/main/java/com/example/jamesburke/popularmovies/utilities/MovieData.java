@@ -1,6 +1,7 @@
 package com.example.jamesburke.popularmovies.utilities;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,7 +10,7 @@ import android.os.Parcelable;
 public class MovieData implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int myId;
     String myPosterUrl;
     int myMovieId;
     String myTitle;
@@ -17,10 +18,11 @@ public class MovieData implements Parcelable {
     Double myVoteAverage;
     String myOverview;
     String myBDUrl;
-    Boolean myFavorites;
+    boolean myFavorites;
 
+    @Ignore
     public MovieData(String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
-                     Double movieVoteAverage, String movieOverview, String backdropUrl) {
+                     Double movieVoteAverage, String movieOverview, String backdropUrl, boolean favorites) {
 
         myPosterUrl = posterUrl;
         myMovieId = movieID;
@@ -29,7 +31,23 @@ public class MovieData implements Parcelable {
         myVoteAverage = movieVoteAverage;
         myOverview = movieOverview;
         myBDUrl = backdropUrl;
+        myFavorites = favorites;
     }
+
+    public MovieData(int Id, String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
+                     Double movieVoteAverage, String movieOverview, String backdropUrl, boolean favorites) {
+
+        myId = Id;
+        myPosterUrl = posterUrl;
+        myMovieId = movieID;
+        myTitle = movieTitle;
+        myReleaseDate = movieReleaseDate;
+        myVoteAverage = movieVoteAverage;
+        myOverview = movieOverview;
+        myBDUrl = backdropUrl;
+        myFavorites = favorites;
+    }
+
 
     private MovieData(Parcel inParcel) {
         myPosterUrl = inParcel.readString();

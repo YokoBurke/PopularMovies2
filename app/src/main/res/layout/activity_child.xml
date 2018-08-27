@@ -113,6 +113,12 @@
                         tools:text="A deep sea submersible pilot revisits his past fears in the Mariana trench."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+                    <!--https://leaks.wanari.com/2017/04/12/xml-drawables/ -->
+                    <ImageView
+                        android:id="@+id/favoritebutton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_favorite_border_24"/>
 
                 </LinearLayout>
             </LinearLayout>
