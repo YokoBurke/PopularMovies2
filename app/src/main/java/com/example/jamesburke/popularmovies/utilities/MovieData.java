@@ -1,10 +1,15 @@
 package com.example.jamesburke.popularmovies.utilities;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+@Entity (tableName = "movie")
 public class MovieData implements Parcelable {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     String myPosterUrl;
     int myMovieId;
     String myTitle;
@@ -12,6 +17,7 @@ public class MovieData implements Parcelable {
     Double myVoteAverage;
     String myOverview;
     String myBDUrl;
+    Boolean myFavorites;
 
     public MovieData(String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
                      Double movieVoteAverage, String movieOverview, String backdropUrl) {
