@@ -88,7 +88,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     public int getItemCount() {
 
         if (myMovieData == null) {
-            Log.i("Movie Adap", "Array is Null");
             return 0;
 
         }
