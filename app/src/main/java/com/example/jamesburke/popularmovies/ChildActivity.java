@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
@@ -19,11 +25,13 @@ public class ChildActivity extends AppCompatActivity {
     private TextView mReleaseDate;
     private TextView mVoteAverage;
     private TextView mPlot;
+    private ImageButton mStarIcon;
 
     private AppDatabase mDb;
 
     MovieData childMovieData;
-
+    private int existanceCheck;
+    private int checkTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class ChildActivity extends AppCompatActivity {
         mReleaseDate = (TextView) findViewById(R.id.child_release_date);
         mVoteAverage = (TextView) findViewById(R.id.child_vote_average);
         mPlot = (TextView) findViewById(R.id.child_plot);
-
+        mStarIcon = (ImageButton) findViewById(R.id.favoritebutton);
 
 
         Intent childIntent = getIntent();
@@ -55,19 +63,67 @@ public class ChildActivity extends AppCompatActivity {
             mPlot.setText(childMovieData.getMyOverview());
         }
 
-        int checkTable = childMovieData.getMyMovieId();
+        checkTable = childMovieData.getMyMovieId();
         Log.v("Child Activity", String.valueOf(checkTable) + "is the ID you are searching for.");
-        int existanceCheck = mDb.movieDao().findMovie(checkTable);
-        Log.v("Child Activity", String.valueOf(existanceCheck) + "is the ID you are searching for.");
+        existanceCheck = mDb.movieDao().findMovie(checkTable);
+        Log.v("Child Activity", String.valueOf(existanceCheck) + "Checking if it exists in the table.");
 
+        if (existanceCheck > 0) {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
+        } else {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
+        }
+
+
+       mStarIcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Toast.makeText(ChildActivity.this, "looks like on click listener is working", Toast.LENGTH_SHORT).show();
+                onFavoriteButtonClicked();
+            }
+            });
 
     }
 
     public void onFavoriteButtonClicked() {
 
-        mDb.movieDao().insertMovie(childMovieData);
-        finish();
+        if (existanceCheck == 0) {
+            childMovieData.setMyFavorites();
+            mDb.movieDao().insertMovie(childMovieData);
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
+
+
+            checkTable = childMovieData.getMyMovieId();
+            Log.v("Child Activity2", String.valueOf(checkTable) + "is the ID you are searching for.");
+            existanceCheck = mDb.movieDao().findMovie(checkTable);
+            Log.v("Child Activity2", String.valueOf(existanceCheck) + "Checking if it exists in the table.");
+
+        } else if (existanceCheck > 0) {
+            childMovieData.unSetMyFavorites();
+            mDb.movieDao().deleteMovie(childMovieData);
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
+
+        }
+
+        //finish();
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.childmenu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.child_favorite:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 }
