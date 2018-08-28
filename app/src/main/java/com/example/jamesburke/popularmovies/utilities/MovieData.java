@@ -11,45 +11,46 @@ public class MovieData implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     private int myId;
-    String myPosterUrl;
-    int myMovieId;
-    String myTitle;
-    String myReleaseDate;
-    Double myVoteAverage;
-    String myOverview;
-    String myBDUrl;
-    boolean myFavorites;
+    private String myPosterUrl;
+    private int myMovieId;
+    private String myTitle;
+    private String myReleaseDate;
+    private Double myVoteAverage;
+    private String myOverview;
+    private String myBDUrl;
+    private boolean myFavorites;
 
     @Ignore
-    public MovieData(String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
-                     Double movieVoteAverage, String movieOverview, String backdropUrl, boolean favorites) {
+    public MovieData(String myPosterUrl, int myMovieId , String myTitle, String myReleaseDate,
+                     Double myVoteAverage, String myOverview, String myBDUrl, boolean myFavorites) {
 
-        myPosterUrl = posterUrl;
-        myMovieId = movieID;
-        myTitle = movieTitle;
-        myReleaseDate = movieReleaseDate;
-        myVoteAverage = movieVoteAverage;
-        myOverview = movieOverview;
-        myBDUrl = backdropUrl;
-        myFavorites = favorites;
+        this.myPosterUrl = myPosterUrl;
+        this.myMovieId = myMovieId;
+        this.myTitle = myTitle;
+        this.myReleaseDate = myReleaseDate;
+        this.myVoteAverage = myVoteAverage;
+        this.myOverview = myOverview;
+        this.myBDUrl = myBDUrl;
+        this.myFavorites = myFavorites;
     }
 
-    public MovieData(int Id, String posterUrl, int movieID, String movieTitle, String movieReleaseDate,
-                     Double movieVoteAverage, String movieOverview, String backdropUrl, boolean favorites) {
+    public MovieData(int myId, String myPosterUrl, int myMovieId, String myTitle, String myReleaseDate,
+                     Double myVoteAverage, String myOverview, String myBDUrl, boolean myFavorites) {
 
-        myId = Id;
-        myPosterUrl = posterUrl;
-        myMovieId = movieID;
-        myTitle = movieTitle;
-        myReleaseDate = movieReleaseDate;
-        myVoteAverage = movieVoteAverage;
-        myOverview = movieOverview;
-        myBDUrl = backdropUrl;
-        myFavorites = favorites;
+        this.myId = myId;
+        this.myPosterUrl = myPosterUrl;
+        this.myMovieId = myMovieId ;
+        this.myTitle = myTitle;
+        this.myReleaseDate = myReleaseDate;
+        this.myVoteAverage = myVoteAverage;
+        this.myOverview = myOverview;
+        this.myBDUrl = myBDUrl;
+        this.myFavorites = myFavorites;
     }
 
 
     private MovieData(Parcel inParcel) {
+        myId = inParcel.readInt();
         myPosterUrl = inParcel.readString();
         myMovieId = inParcel.readInt();
         myTitle = inParcel.readString();
@@ -59,7 +60,8 @@ public class MovieData implements Parcelable {
         myBDUrl = inParcel.readString();
     }
 
-    public String getMyUrl() {
+    public int getMyId() { return myId;}
+    public String getMyPosterUrl() {
         return myPosterUrl;
     }
     public int getMyMovieId() {
@@ -81,7 +83,15 @@ public class MovieData implements Parcelable {
     public String getMyBDUrl() {
         return myBDUrl;
     }
+    public boolean getMyFavorites() {return myFavorites;}
 
+    public void setMyFavorites() {
+        myFavorites = true;
+    }
+
+    public void unSetMyFavorites() {
+        myFavorites = false;
+    }
     @Override
     public int describeContents() {
         return 0;
@@ -89,6 +99,7 @@ public class MovieData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(myId);
         parcel.writeString(myPosterUrl);
         parcel.writeInt(myMovieId);
         parcel.writeString(myTitle);

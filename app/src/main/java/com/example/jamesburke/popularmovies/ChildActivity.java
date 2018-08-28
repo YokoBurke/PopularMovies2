@@ -21,7 +21,9 @@ public class ChildActivity extends AppCompatActivity {
     private TextView mPlot;
 
     private AppDatabase mDb;
+
     MovieData childMovieData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class ChildActivity extends AppCompatActivity {
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
             childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
 
-            Picasso.with(this).load(childMovieData.getMyUrl()).into(mPoster);
+            Picasso.with(this).load(childMovieData.getMyPosterUrl()).into(mPoster);
             Picasso.with(this).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
             mTitle.setText(childMovieData.getMyTitle());
@@ -52,6 +54,12 @@ public class ChildActivity extends AppCompatActivity {
             mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
             mPlot.setText(childMovieData.getMyOverview());
         }
+
+        int checkTable = childMovieData.getMyMovieId();
+        Log.v("Child Activity", String.valueOf(checkTable) + "is the ID you are searching for.");
+        int existanceCheck = mDb.movieDao().findMovie(checkTable);
+        Log.v("Child Activity", String.valueOf(existanceCheck) + "is the ID you are searching for.");
+
 
     }
 
