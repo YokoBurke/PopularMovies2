@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/favorite_list_height"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/favorite_poster_image"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:layout_width="@dimen/favorite_list_height"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/favorite_title"
+        tools:text="Beauty and the Beast"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
