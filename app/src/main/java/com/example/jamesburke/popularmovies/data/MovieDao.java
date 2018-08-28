@@ -16,6 +16,10 @@ public interface MovieDao {
     @Query("SELECT * FROM movie ORDER BY myId")
     List<MovieData> loadAllMovie();
 
+    @Query("SELECT * FROM movie WHERE myId LIKE :searchID")
+    public abstract List<MovieData> findMovie(int searchID);
+
+
     @Insert
     void insertMovie(MovieData movieData);
 

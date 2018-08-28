@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.squareup.picasso.Picasso;
 
@@ -19,10 +20,15 @@ public class ChildActivity extends AppCompatActivity {
     private TextView mVoteAverage;
     private TextView mPlot;
 
+    private AppDatabase mDb;
+    MovieData childMovieData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
+
+        mDb = AppDatabase.getsInstance(getApplicationContext());
 
         mBackDrop = (ImageView) findViewById(R.id.child_backdrop);
         mPoster = (ImageView) findViewById(R.id.child_poster);
@@ -36,7 +42,7 @@ public class ChildActivity extends AppCompatActivity {
 
         Intent childIntent = getIntent();
         if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            MovieData childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
+            childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
 
             Picasso.with(this).load(childMovieData.getMyUrl()).into(mPoster);
             Picasso.with(this).load(childMovieData.getMyBDUrl()).into(mBackDrop);
@@ -48,4 +54,12 @@ public class ChildActivity extends AppCompatActivity {
         }
 
     }
+
+    public void onFavoriteButtonClicked() {
+
+        mDb.movieDao().insertMovie(childMovieData);
+        finish();
+
+    }
+
 }
