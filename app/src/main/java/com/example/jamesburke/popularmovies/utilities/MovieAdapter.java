@@ -52,7 +52,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
             Intent intent = new Intent(myContext, ChildActivity.class);
             intent.putExtra(Intent.EXTRA_TEXT, myMovieData.get(clickedPosition));
-            Log.i("Title is this", myMovieData.get(clickedPosition).getMyTitle());
             myContext.startActivity(intent);
         }
     }
