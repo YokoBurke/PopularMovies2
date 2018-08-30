@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Nullable
             @Override
             public String loadInBackground() {
-                URL searchURL = NetworkUtils.buildURL(selectedData);
+                URL searchURL = NetworkUtils.buildURL(selectedData, 0);
                 String myString = "";
                 try {
                     myString = NetworkUtils.getResponseFromHttpUrl(searchURL);
