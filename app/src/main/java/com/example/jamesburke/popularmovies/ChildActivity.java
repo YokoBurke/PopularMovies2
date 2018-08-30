@@ -120,6 +120,8 @@ public class ChildActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.child_favorite:
+                Intent intent = new Intent(ChildActivity.this, FavoriteActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -17,7 +17,7 @@ public interface MovieDao {
     List<MovieData> loadAllMovie();
 
     @Query("SELECT COUNT(myID) FROM movie WHERE myId LIKE :searchID")
-    public abstract int findMovie(int searchID);
+    int findMovie(int searchID);
 
 
     @Insert
