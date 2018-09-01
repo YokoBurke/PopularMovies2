@@ -12,7 +12,8 @@
 
     <string name="main_empty_view">No Data Available</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fragment_detail">Details</string>
+    <string name="fragment_reviews">Reviews</string>
+    <string name="fragment_videos">Trailors</string>
 
 </resources>
