@@ -1,8 +1,12 @@
 package com.example.jamesburke.popularmovies.utilities;
 
+import android.app.DialogFragment;
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
+import com.example.jamesburke.popularmovies.Fragment.DetailsFragment;
 import com.example.jamesburke.popularmovies.R;
 import com.squareup.picasso.Picasso;
 
@@ -49,9 +54,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
 
-            Intent intent = new Intent(myContext, ChildActivity.class);
+            /* Intent intent = new Intent(myContext, DetailsFragment.class);
             intent.putExtra(Intent.EXTRA_TEXT, myMovieData.get(clickedPosition));
-            myContext.startActivity(intent);
+            myContext.startActivity(intent); */
+
+            DetailsFragment detailsFragment = new DetailsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("toDetailedMovieData", myMovieData.get(clickedPosition));
+            detailsFragment.setArguments(bundle);
         }
     }
 
