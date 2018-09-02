@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,8 @@ public class DetailsFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail, container, false);
 
+
+
     }
 
     @Override
@@ -65,8 +69,23 @@ public class DetailsFragment extends Fragment {
         mPlot = (TextView) getView().findViewById(R.id.child_plot);
         mStarIcon = (ImageButton) getView().findViewById(R.id.favoritebutton);
 
-        Context c = getActivity().getApplicationContext();
 
+        Context c = getActivity().getApplicationContext();
+        Bundle bundle = this.getArguments();
+        if (bundle != null) {
+            childMovieData = bundle.getParcelable("toDetailedMovieData");
+
+            Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
+            Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
+
+            mTitle.setText(childMovieData.getMyTitle());
+            mReleaseDate.setText(childMovieData.getMyReleaseDate());
+            mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
+            mPlot.setText(childMovieData.getMyOverview());
+        } else {
+
+            Log.v("DetailsFragment", "Unfortunately, it is null");
+        }
 
 
         /* Intent childIntent = getActivity().getIntent();
@@ -82,18 +101,6 @@ public class DetailsFragment extends Fragment {
             mPlot.setText(childMovieData.getMyOverview());
         } */
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            childMovieData = bundle.getParcelable("toDetailedMovieData");
-
-            Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
-            Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
-
-            mTitle.setText(childMovieData.getMyTitle());
-            mReleaseDate.setText(childMovieData.getMyReleaseDate());
-            mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
-            mPlot.setText(childMovieData.getMyOverview());
-        }
 
 
     }

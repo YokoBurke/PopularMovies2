@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,14 +55,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
 
-            /* Intent intent = new Intent(myContext, DetailsFragment.class);
-            intent.putExtra(Intent.EXTRA_TEXT, myMovieData.get(clickedPosition));
-            myContext.startActivity(intent); */
-
             DetailsFragment detailsFragment = new DetailsFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("toDetailedMovieData", myMovieData.get(clickedPosition));
             detailsFragment.setArguments(bundle);
+
+            boolean x = bundle.hasFileDescriptors();
+            Log.v("Value", String.valueOf(x));
+
+            Intent intent = new Intent(myContext, ChildActivity.class);
+            myContext.startActivity(intent);
         }
     }
 

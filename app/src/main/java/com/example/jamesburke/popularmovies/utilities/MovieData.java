@@ -49,7 +49,7 @@ public class MovieData implements Parcelable {
     }
 
 
-    private MovieData(Parcel inParcel) {
+    public MovieData(Parcel inParcel) {
         myId = inParcel.readInt();
         myPosterUrl = inParcel.readString();
         myMovieId = inParcel.readInt();
