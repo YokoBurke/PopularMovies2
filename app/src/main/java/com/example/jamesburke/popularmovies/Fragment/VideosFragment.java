@@ -3,6 +3,7 @@ package com.example.jamesburke.popularmovies.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,10 @@ public class VideosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        int x = getArguments().getInt("myMovieIdBundle");
+        Log.v("Fragment", String.valueOf(x));
         return inflater.inflate(R.layout.fragment_videos, container, false);
+
     }
 
 }

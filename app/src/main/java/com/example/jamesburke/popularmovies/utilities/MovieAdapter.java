@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.telecom.Call;
 import android.util.Log;
+import android.util.Size;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.Fragment.DetailsFragment;
+import com.example.jamesburke.popularmovies.Fragment.ReviewsFragment;
+import com.example.jamesburke.popularmovies.Fragment.VideosFragment;
 import com.example.jamesburke.popularmovies.R;
 import com.squareup.picasso.Picasso;
 
@@ -55,13 +58,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
 
+
             DetailsFragment detailsFragment = new DetailsFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelable("toDetailedMovieData", myMovieData.get(clickedPosition));
             detailsFragment.setArguments(bundle);
 
-            boolean x = bundle.hasFileDescriptors();
-            Log.v("Value", String.valueOf(x));
+            Bundle movieIdBundle = new Bundle();
+            bundle.putInt("myMovieIdBundle", myMovieData.get(clickedPosition).getMyMovieId());
+            ReviewsFragment reviewsFragment = new ReviewsFragment();
+            VideosFragment videosFragment = new VideosFragment();
+            reviewsFragment.setArguments(movieIdBundle);
+            videosFragment.setArguments(movieIdBundle);
+
 
             Intent intent = new Intent(myContext, ChildActivity.class);
             myContext.startActivity(intent);

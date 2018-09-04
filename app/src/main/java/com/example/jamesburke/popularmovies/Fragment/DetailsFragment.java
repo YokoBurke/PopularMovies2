@@ -69,8 +69,8 @@ public class DetailsFragment extends Fragment {
         mPlot = (TextView) getView().findViewById(R.id.child_plot);
         mStarIcon = (ImageButton) getView().findViewById(R.id.favoritebutton);
 
-
         Context c = getActivity().getApplicationContext();
+
         Bundle bundle = this.getArguments();
         if (bundle != null) {
             childMovieData = bundle.getParcelable("toDetailedMovieData");
@@ -82,25 +82,9 @@ public class DetailsFragment extends Fragment {
             mReleaseDate.setText(childMovieData.getMyReleaseDate());
             mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
             mPlot.setText(childMovieData.getMyOverview());
-        } else {
-
-            Log.v("DetailsFragment", "Unfortunately, it is null");
+        }  else if (bundle == null) {
+            Log.v("DetailsFragment", "bundle is null");
         }
-
-
-        /* Intent childIntent = getActivity().getIntent();
-        if (childIntent.hasExtra(Intent.EXTRA_TEXT)) {
-            childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
-
-            Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
-            Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
-
-            mTitle.setText(childMovieData.getMyTitle());
-            mReleaseDate.setText(childMovieData.getMyReleaseDate());
-            mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
-            mPlot.setText(childMovieData.getMyOverview());
-        } */
-
 
 
     }
