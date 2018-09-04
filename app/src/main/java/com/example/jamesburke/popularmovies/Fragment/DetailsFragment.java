@@ -2,11 +2,7 @@ package com.example.jamesburke.popularmovies.Fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,12 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
-import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.squareup.picasso.Picasso;
-
-import static android.content.Intent.getIntent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,9 +65,10 @@ public class DetailsFragment extends Fragment {
 
         Context c = getActivity().getApplicationContext();
 
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            childMovieData = bundle.getParcelable("toDetailedMovieData");
+
+        ChildActivity childActivity = (ChildActivity) getActivity();
+        childMovieData = childActivity.getMyData();
+        if (childMovieData != null) {
 
             Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
             Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
@@ -82,8 +77,8 @@ public class DetailsFragment extends Fragment {
             mReleaseDate.setText(childMovieData.getMyReleaseDate());
             mVoteAverage.setText(Double.toString(childMovieData.getMyVoteAverage()));
             mPlot.setText(childMovieData.getMyOverview());
-        }  else if (bundle == null) {
-            Log.v("DetailsFragment", "bundle is null");
+        }  else {
+            Log.v("DetailsFragment", "ChildActivity is null");
         }
 
 
