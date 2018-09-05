@@ -12,6 +12,7 @@ public class JsonUtils {
 
     private static String CLASS_NAME = JsonUtils.class.getSimpleName();
 
+    //instance for parseMovieData
     private final static String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/";
     private final static String IMAGE_SIZE_POSTER = "w500";
     private final static String IMAGE_SIZE_BACKDROP = "w1280";
@@ -59,6 +60,8 @@ public class JsonUtils {
 
         return movieList;
     }
+
+
 
 
 }
