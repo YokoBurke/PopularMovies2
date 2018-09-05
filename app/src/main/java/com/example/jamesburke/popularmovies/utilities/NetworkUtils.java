@@ -30,19 +30,33 @@ public class NetworkUtils {
     public static URL buildURL(String selectedData, int movieID) {
 
         String selectedBase = "";
-        Log.i("Netowrk Utils", selectedData);
-        switch (selectedData) {
-            case "top_rate": selectedBase = MOVIE_TOP_RATE_BASE_URL;
-                break;
-            case "popular": selectedBase = MOVIE_POPULAR_BASE_URL;
-                break;
-            case "upcoming": selectedBase = MOVIE_UPCOMING_BASE_URL;
-                break;
-            case "now_playing": selectedBase = MOVIE_NOW_PLAYING_BASE_URL;
-                break;
-        }
+        Log.v("Netowrk Util", Integer.toString(movieID));
 
+            Log.i("Netowrk Utils", selectedData);
+            switch (selectedData) {
+                case "top_rate":
+                    selectedBase = MOVIE_TOP_RATE_BASE_URL;
+                    break;
+                case "popular":
+                    selectedBase = MOVIE_POPULAR_BASE_URL;
+                    break;
+                case "upcoming":
+                    selectedBase = MOVIE_UPCOMING_BASE_URL;
+                    break;
+                case "now_playing":
+                    selectedBase = MOVIE_NOW_PLAYING_BASE_URL;
+                    break;
+                case "reviews":
+                    selectedBase = MOVIE_BASE_URL + Integer.toString(movieID) + "/reviews?api_key=";
+                    break;
+                case "videos":
+                    selectedBase = MOVIE_BASE_URL + Integer.toString(movieID) + "/videos?api_key=";
+                    break;
+
+            }
         Uri builtUri = Uri.parse(selectedBase + API_URL);
+        Log.v("NetworkUtils", builtUri.toString());
+
 
         URL url = null;
         try {
