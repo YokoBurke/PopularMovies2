@@ -58,7 +58,7 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
             mOnClickListener.onListItemClick(clickedPosition);
 
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youTubeUrl));
-            startActivity(intent);
+            myContext.startActivity(intent);
 
         }
     }
