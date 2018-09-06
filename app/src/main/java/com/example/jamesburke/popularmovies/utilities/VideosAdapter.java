@@ -1,6 +1,8 @@
 package com.example.jamesburke.popularmovies.utilities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
     private List<MovieVideosData> myMovieVideosData;
     private Context myContext;
     final private ListItemClickListener mOnClickListener;
+
+    String youTubeUrl;
 
     public interface ListItemClickListener {
         void onListItemClick(int clickedItemIndex);
@@ -52,6 +57,8 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
 
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youTubeUrl));
+            startActivity(intent);
 
         }
     }
@@ -71,11 +78,21 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
 
         String myTitle = myMovieVideosData.get(position).getMyTrailorName();
         String myImgUrl = myMovieVideosData.get(position).returnYoutubeImageURL();
+        youTubeUrl = myMovieVideosData.get(position).returnYouTubeVideoURL();
+
+        Picasso.with(myContext).load(myImgUrl).into(holder.myImageView);
+        holder.myTextView.setText(myTitle);
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+
+        if (myMovieVideosData == null) {
+            return 0;
+        }
+
+        return myMovieVideosData.size();
     }
+
 }
