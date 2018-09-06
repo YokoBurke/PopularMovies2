@@ -1,15 +1,14 @@
 package com.example.jamesburke.popularmovies.utilities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
 
 import java.util.List;
@@ -42,8 +41,8 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
 
         public MyVideosViewHolder(View itemView) {
             super(itemView);
-            myImageView = (ImageView) itemView.findViewById(R.id.);
-            myTextView = (TextView) itemView.findViewById(R.id.info_title);
+            myImageView = (ImageView) itemView.findViewById(R.id.trailer_image);
+            myTextView = (TextView) itemView.findViewById(R.id.trailor_title);
             itemView.setOnClickListener(this);
         }
 
@@ -53,9 +52,7 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
             int clickedPosition = getAdapterPosition();
             mOnClickListener.onListItemClick(clickedPosition);
 
-            Intent intent = new Intent(myContext, ChildActivity.class);
-            intent.putExtra(Intent.EXTRA_TEXT, myMovieData.get(clickedPosition));
-            myContext.startActivity(intent);
+
         }
     }
 
@@ -63,11 +60,17 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
     @NonNull
     @Override
     public VideosAdapter.MyVideosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        int myLayoutID = R.layout.fragment_videos_item;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(myLayoutID, parent, false);
+        MyVideosViewHolder myVideosViewHolder = new MyVideosViewHolder(itemView);
+        return myVideosViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull VideosAdapter.MyVideosViewHolder holder, int position) {
+
+        String myTitle = myMovieVideosData.get(position).getMyTrailorName();
+        String myImgUrl = myMovieVideosData.get(position).returnYoutubeImageURL();
 
     }
 
