@@ -10,9 +10,15 @@ public class MovieReviewsData {
     private String myContent;
 
     public MovieReviewsData (String mAuthor, String mContent) {
-
         myAuthor = mAuthor;
         myContent = mContent;
+    }
 
+    public String getMyAuthor() {
+        return myAuthor;
+    }
+
+    public String getMyContent() {
+        return myContent;
     }
 }
