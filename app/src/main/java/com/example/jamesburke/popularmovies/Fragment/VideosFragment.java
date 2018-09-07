@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +26,13 @@ import java.net.URL;
  */
 public class VideosFragment extends Fragment {
 
+    private static final int MOVIE_SEARCH_LOADER = 127;
     private MovieData myMovieData;
     private obtainVideosTask mObtainVideosTask;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public VideosFragment() {
         // Required empty public constructor
@@ -35,8 +43,13 @@ public class VideosFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ChildActivity childActivity = (ChildActivity) getActivity();
         myMovieData = childActivity.getMyData();
-        int myTitle = myMovieData.getMyMovieId();
-        Log.v("VideoFragment", Integer.toString(myTitle));
+
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.videos_recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
 
 
     }
