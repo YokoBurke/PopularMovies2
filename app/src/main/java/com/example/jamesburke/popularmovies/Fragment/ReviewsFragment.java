@@ -33,7 +33,7 @@ public class ReviewsFragment extends Fragment {
 
     private MovieData myMovieData;
     private obtainReviewTask mObtainReviewTask;
-
+    ReviewAdapter mReviewAdapter;
     private ArrayList<MovieReviewsData> myMovieReviewsDataList;
 
     public ReviewsFragment() {
@@ -60,11 +60,7 @@ public class ReviewsFragment extends Fragment {
 
         RecyclerView rv = new RecyclerView(getContext());
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        ReviewAdapter mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
         rv.setAdapter(mReviewAdapter);
-
-        mObtainReviewTask = new obtainReviewTask();
-        mObtainReviewTask.execute();
 
         return inflater.inflate(R.layout.fragment_reviews, container, false);
     }
@@ -81,6 +77,7 @@ public class ReviewsFragment extends Fragment {
             } catch (IOException e){
                 Log.e("ReviewsFragment", "Problem making the HTTP request.", e);
             }
+            Log.i("ReviewFragment", reviewSearchResults);
             return reviewSearchResults;
         }
 
@@ -88,7 +85,8 @@ public class ReviewsFragment extends Fragment {
         protected void onPostExecute(String myReviewSearchResult){
             if (myReviewSearchResult != null && !myReviewSearchResult.equals("")){
                 myMovieReviewsDataList = JsonFragmentUtils.parseMovieReviewsData(myReviewSearchResult);
-
+                Log.i("ReviewFragment222", myReviewSearchResult);
+                mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
 
             }
 
