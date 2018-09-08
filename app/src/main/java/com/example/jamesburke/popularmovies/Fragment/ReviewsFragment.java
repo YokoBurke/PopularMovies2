@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +14,15 @@ import android.view.ViewGroup;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
+import com.example.jamesburke.popularmovies.utilities.JsonFragmentUtils;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
+import com.example.jamesburke.popularmovies.utilities.MovieReviewsData;
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
+import com.example.jamesburke.popularmovies.utilities.ReviewAdapter;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +33,8 @@ public class ReviewsFragment extends Fragment {
 
     private MovieData myMovieData;
     private obtainReviewTask mObtainReviewTask;
+
+    private ArrayList<MovieReviewsData> myMovieReviewsDataList;
 
     public ReviewsFragment() {
         // Required empty public constructor
@@ -50,6 +58,14 @@ public class ReviewsFragment extends Fragment {
         mObtainReviewTask = new obtainReviewTask();
         mObtainReviewTask.execute();
 
+        RecyclerView rv = new RecyclerView(getContext());
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        ReviewAdapter mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
+        rv.setAdapter(mReviewAdapter);
+
+        mObtainReviewTask = new obtainReviewTask();
+        mObtainReviewTask.execute();
+
         return inflater.inflate(R.layout.fragment_reviews, container, false);
     }
 
@@ -63,9 +79,19 @@ public class ReviewsFragment extends Fragment {
            try {
                 reviewSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
             } catch (IOException e){
-                Log.e("Main Activity", "Problem making the HTTP request.", e);
+                Log.e("ReviewsFragment", "Problem making the HTTP request.", e);
             }
             return reviewSearchResults;
+        }
+
+        @Override
+        protected void onPostExecute(String myReviewSearchResult){
+            if (myReviewSearchResult != null && !myReviewSearchResult.equals("")){
+                myMovieReviewsDataList = JsonFragmentUtils.parseMovieReviewsData(myReviewSearchResult);
+
+
+            }
+
         }
     }
 

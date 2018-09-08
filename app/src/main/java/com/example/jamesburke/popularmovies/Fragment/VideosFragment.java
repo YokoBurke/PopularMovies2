@@ -44,13 +44,13 @@ public class VideosFragment extends Fragment {
         ChildActivity childActivity = (ChildActivity) getActivity();
         myMovieData = childActivity.getMyData();
 
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.videos_recycler_view);
+        /* mRecyclerView = (RecyclerView) getView().findViewById(R.id.videos_recycler_view);
         mRecyclerView.setHasFixedSize(true);
 
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
+*/
 
     }
 
