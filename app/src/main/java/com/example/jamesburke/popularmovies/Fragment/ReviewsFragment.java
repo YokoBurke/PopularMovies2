@@ -28,7 +28,6 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 
-//https://api.themoviedb.org/3/movie/299536/reviews?api_key=73e4a66f623745e5138464b4ac6fb93b
 public class ReviewsFragment extends Fragment {
 
     private MovieData myMovieData;
