@@ -3,11 +3,13 @@ package com.example.jamesburke.popularmovies.utilities;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.jamesburke.popularmovies.Fragment.ReviewsFragment;
 import com.example.jamesburke.popularmovies.R;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
  */
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.MyReviewViewHolder> {
+
+    private static final String LOG_TAG = ReviewAdapter.class.getSimpleName();
 
     private List<MovieReviewsData> myMovieReviewsData;
     private Context myContext;
@@ -55,6 +59,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.MyReviewVi
 
         holder.myAuthorTextView.setText(myAuthor);
         holder.myReviewTextView.setText(myReview);
+
+        Log.v(LOG_TAG,myAuthor + " " + myReview);
+
 
     }
 
