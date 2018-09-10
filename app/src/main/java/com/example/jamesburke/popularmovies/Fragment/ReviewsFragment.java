@@ -38,6 +38,7 @@ public class ReviewsFragment extends Fragment {
     ReviewAdapter mReviewAdapter;
     private ArrayList<MovieReviewsData> myMovieReviewsDataList;
     private RecyclerView rv;
+    ChildActivity childActivity;
 
     public ReviewsFragment() {
         // Required empty public constructor
@@ -47,7 +48,7 @@ public class ReviewsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ChildActivity childActivity = (ChildActivity) getActivity();
+        childActivity = (ChildActivity) getActivity();
         myMovieData = childActivity.getMyData();
         String myTitle = myMovieData.getMyTitle();
         Log.v("ReviewsFragment", myTitle);
@@ -61,11 +62,14 @@ public class ReviewsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_reviews, container, false);
         rv = (RecyclerView) view.findViewById(R.id.reviews_recycler_view);
 
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setAdapter(mReviewAdapter);
+        rv.setLayoutManager(new LinearLayoutManager(childActivity));
+
 
         mObtainReviewTask = new obtainReviewTask();
         mObtainReviewTask.execute();
+
+
+
 
         return view;
     }
@@ -93,10 +97,13 @@ public class ReviewsFragment extends Fragment {
             if (myReviewSearchResult != null && !myReviewSearchResult.equals("")){
                 myMovieReviewsDataList = JsonFragmentUtils.parseMovieReviewsData(myReviewSearchResult);
                 Log.i(LOG_TAG, myReviewSearchResult);
-                mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
 
+                mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
                 String x = Integer.toString(mReviewAdapter.getItemCount());
+
                 Log.v(LOG_TAG, "Obtained review number:" + x);
+                rv.setAdapter(mReviewAdapter);
+
             }
 
         }
