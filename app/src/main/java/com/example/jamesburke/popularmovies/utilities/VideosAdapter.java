@@ -1,8 +1,6 @@
 package com.example.jamesburke.popularmovies.utilities;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,22 +22,17 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
 
     private List<MovieVideosData> myMovieVideosData;
     private Context myContext;
-    final private ListItemClickListener mOnClickListener;
 
     String youTubeUrl;
 
-    public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex);
-    }
 
-    public VideosAdapter(Context mContext, List<MovieVideosData> theMovieVideosData, VideosAdapter.ListItemClickListener listener) {
+
+    public VideosAdapter(Context mContext, List<MovieVideosData> theMovieVideosData) {
         myMovieVideosData = theMovieVideosData;
         myContext = mContext;
-        mOnClickListener = listener;
-
     }
 
-    class MyVideosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class MyVideosViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView myImageView;
         public TextView myTextView;
@@ -48,18 +41,6 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
             super(itemView);
             myImageView = (ImageView) itemView.findViewById(R.id.trailer_image);
             myTextView = (TextView) itemView.findViewById(R.id.trailor_title);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition);
-
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(youTubeUrl));
-            myContext.startActivity(intent);
-
         }
     }
 

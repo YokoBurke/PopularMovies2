@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.jamesburke.popularmovies.Fragment.ReviewsFragment;
 import com.example.jamesburke.popularmovies.R;
 
 import java.util.List;

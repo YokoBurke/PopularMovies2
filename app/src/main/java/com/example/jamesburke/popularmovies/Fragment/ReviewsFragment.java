@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
-import com.example.jamesburke.popularmovies.utilities.FavoriteAdapter;
 import com.example.jamesburke.popularmovies.utilities.JsonFragmentUtils;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.example.jamesburke.popularmovies.utilities.MovieReviewsData;
@@ -64,18 +63,11 @@ public class ReviewsFragment extends Fragment {
 
         rv.setLayoutManager(new LinearLayoutManager(childActivity));
 
-
         mObtainReviewTask = new obtainReviewTask();
         mObtainReviewTask.execute();
 
-
-
-
         return view;
     }
-
-
-
 
     public class obtainReviewTask extends AsyncTask<URL, Void, String> {
 
