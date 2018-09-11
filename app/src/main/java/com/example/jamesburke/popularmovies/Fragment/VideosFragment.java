@@ -24,9 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class VideosFragment extends Fragment {
 
     private static final String LOG_TAG = VideosFragment.class.getSimpleName();
@@ -39,7 +37,8 @@ public class VideosFragment extends Fragment {
     private RecyclerView mRecyclerView;
     ChildActivity childActivity;
 
-    public VideosFragment() {}
+    public VideosFragment() {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,8 +90,11 @@ public class VideosFragment extends Fragment {
 
                 myVideosAdapter = new VideosAdapter(getContext(), myMovieVideosDataList);
                 String y = Integer.toString(myVideosAdapter.getItemCount());
+
+                Log.v(LOG_TAG, y);
                 mRecyclerView.setAdapter(myVideosAdapter);
             }
         }
 
     }
+}
