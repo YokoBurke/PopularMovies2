@@ -3,6 +3,7 @@ package com.example.jamesburke.popularmovies.utilities;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
 
         String myTitle = myMovieVideosData.get(position).getMyTrailorName();
         String myImgUrl = myMovieVideosData.get(position).returnYoutubeImageURL();
+        Log.v("VideoAdapter", myImgUrl);
         youTubeUrl = myMovieVideosData.get(position).returnYouTubeVideoURL();
 
         Picasso.with(myContext).load(myImgUrl).into(holder.myImageView);

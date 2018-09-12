@@ -11,7 +11,7 @@ public class MovieVideosData {
     private String myTrailorSite;
 
     private static final String myYoutubeURLBase = "https://www.youtube.com/watch?v=";
-    private static final String myYoutubeImageURLBase = "https://www.img.youtube.com/vi/";
+    private static final String myYoutubeImageURLBase = "https://img.youtube.com/vi/";
 
     public MovieVideosData (String mSiteKey, String mTrailorName, String mTrailorSite) {
         mySiteKey = mSiteKey;
@@ -33,6 +33,6 @@ public class MovieVideosData {
     }
 
     public String returnYoutubeImageURL() {
-        return myYoutubeImageURLBase + mySiteKey + "/0.jpg";
+        return myYoutubeImageURLBase + mySiteKey + "/default.jpg";
     }
 }
