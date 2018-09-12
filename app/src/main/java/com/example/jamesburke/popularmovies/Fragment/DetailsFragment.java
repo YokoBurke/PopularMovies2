@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
+import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.squareup.picasso.Picasso;
 
@@ -35,7 +36,7 @@ public class DetailsFragment extends Fragment {
     private int existanceCheck;
     private int checkTable;
 
-
+    private AppDatabase mDb;
 
     public DetailsFragment() {
         // Required empty public constructor
@@ -46,8 +47,6 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail, container, false);
-
-
 
     }
 
@@ -61,10 +60,18 @@ public class DetailsFragment extends Fragment {
         mReleaseDate = (TextView) getView().findViewById(R.id.child_release_date);
         mVoteAverage = (TextView) getView().findViewById(R.id.child_vote_average);
         mPlot = (TextView) getView().findViewById(R.id.child_plot);
+
+        mDb = AppDatabase.getsInstance(getContext().getApplicationContext());
+
         mStarIcon = (ImageButton) getView().findViewById(R.id.favoritebutton);
+        mStarIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onSaveButtonClicked();
+            }
+        });
 
         Context c = getActivity().getApplicationContext();
-
 
         ChildActivity childActivity = (ChildActivity) getActivity();
         childMovieData = childActivity.getMyData();
@@ -80,10 +87,11 @@ public class DetailsFragment extends Fragment {
         }  else {
             Log.v("DetailsFragment", "ChildActivity is null");
         }
-
-
     }
 
+    public void onSaveButtonClicked() {
+        mDb.movieDao().insertMovie(childMovieData);
+    }
 
 
 }
