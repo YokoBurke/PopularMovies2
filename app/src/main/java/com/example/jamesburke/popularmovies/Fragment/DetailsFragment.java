@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
  */
 public class DetailsFragment extends Fragment {
 
+    private static final String LOG_TAG = DetailsFragment.class.getSimpleName();
     private ImageView mBackDrop;
     private ImageView mPoster;
     private TextView mTitle;
@@ -91,6 +92,8 @@ public class DetailsFragment extends Fragment {
 
     public void onSaveButtonClicked() {
         mDb.movieDao().insertMovie(childMovieData);
+        int x = mDb.movieDao().findMovie();
+        Log.v(LOG_TAG, "On Save Button is clicked" + Integer.toString(x));
     }
 
 

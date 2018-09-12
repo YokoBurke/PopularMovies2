@@ -16,8 +16,8 @@ public interface MovieDao {
     @Query("SELECT * FROM movie ORDER BY myId")
     List<MovieData> loadAllMovie();
 
-    @Query("SELECT COUNT(myID) FROM movie WHERE myId LIKE :searchID")
-    int findMovie(int searchID);
+    @Query("SELECT COUNT(myID) FROM movie")
+    int findMovie();
 
 
     @Insert

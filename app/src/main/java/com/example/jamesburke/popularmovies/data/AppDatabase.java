@@ -13,7 +13,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = AppDatabase.class.getSimpleName();
     private static final Object LOCK =  new Object();
-    private static final String DATABASE_NAME = "favorite_movie";
+    private static final String DATABASE_NAME = "favorite_movie.db";
     private static AppDatabase sInstance;
 
     public static AppDatabase getsInstance(Context context) {
@@ -23,6 +23,10 @@ public abstract class AppDatabase extends RoomDatabase {
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         AppDatabase.class, AppDatabase.DATABASE_NAME).allowMainThreadQueries().build();
             }
+        }
+
+        if (sInstance == null) {
+            Log.d(LOG_TAG, "Oh, no.  sInstance is still null!!");
         }
         Log.d(LOG_TAG, "Getting the Database Instance");
         return sInstance;
