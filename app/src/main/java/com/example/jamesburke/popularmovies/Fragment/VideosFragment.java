@@ -88,7 +88,12 @@ public class VideosFragment extends Fragment {
                 myMovieVideosDataList = JsonFragmentUtils.parseMovieVideosData(myVideoSearchResult);
                 Log.i(LOG_TAG, myVideoSearchResult);
 
-                myVideosAdapter = new VideosAdapter(getContext(), myMovieVideosDataList);
+                myVideosAdapter = new VideosAdapter(getContext(), myMovieVideosDataList, new VideosAdapter.ListItemClickListener() {
+                    @Override
+                    public void onListItemClick(int clickedItemIndex) {
+
+                    }
+                });
                 String y = Integer.toString(myVideosAdapter.getItemCount());
 
                 Log.v(LOG_TAG, y);
