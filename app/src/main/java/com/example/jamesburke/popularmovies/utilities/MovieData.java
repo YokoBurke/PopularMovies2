@@ -48,7 +48,6 @@ public class MovieData implements Parcelable {
         this.myFavorites = myFavorites;
     }
 
-
     public MovieData(Parcel inParcel) {
         myId = inParcel.readInt();
         myPosterUrl = inParcel.readString();
