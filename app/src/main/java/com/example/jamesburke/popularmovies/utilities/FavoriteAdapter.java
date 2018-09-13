@@ -56,6 +56,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         return mMovieDatas.size();
     }
 
+    public void setMovieDatas(List<MovieData> myMovieDatas) {
+
+        mMovieDatas = myMovieDatas;
+        notifyDataSetChanged();
+    }
+
     class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
         ImageView moviePosterView;
