@@ -89,6 +89,12 @@ public class DetailsFragment extends Fragment {
         }  else {
             Log.v("DetailsFragment", "ChildActivity is null");
         }
+
+        if(existanceCheck == true) {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
+        } else {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
+        }
     }
 
     public void onSaveButtonClicked() {
