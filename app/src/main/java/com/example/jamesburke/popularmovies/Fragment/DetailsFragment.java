@@ -34,7 +34,7 @@ public class DetailsFragment extends Fragment {
     private ImageButton mStarIcon;
 
     MovieData childMovieData;
-
+    private boolean existanceCheck;
 
     private AppDatabase mDb;
 
@@ -75,8 +75,10 @@ public class DetailsFragment extends Fragment {
 
         ChildActivity childActivity = (ChildActivity) getActivity();
         childMovieData = childActivity.getMyData();
-        if (childMovieData != null) {
 
+        if (childMovieData != null) {
+            existanceCheck = searchDB(childMovieData.getMyMovieId());
+            Log.i(LOG_TAG, "YEEES" + String.valueOf(existanceCheck));
             Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
             Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
@@ -95,12 +97,12 @@ public class DetailsFragment extends Fragment {
         Log.v(LOG_TAG, "On Save Button is clicked" + Integer.toString(x));
     }
 
-    public boolean searchDB(String myMovieID) {
-        Integer x = mDb.movieDao().checkExistance(childMovieData.getMyMovieId());
-        if (x == null){
-            return false;
-        } else{
+    public boolean searchDB(int myMovieID) {
+        Integer x = mDb.movieDao().checkExistance(myMovieID);
+        if (x > 0){
             return true;
+        } else{
+            return false;
         }
     }
 
