@@ -19,6 +19,8 @@ public interface MovieDao {
     @Query("SELECT COUNT(myID) FROM movie")
     int findMovie();
 
+    @Query("SELECT COUNT(myMovieId) FROM movie WHERE myMovieId = 'findMovieID'")
+    Integer checkExistance(int findMovieID);
 
     @Insert
     void insertMovie(MovieData movieData);

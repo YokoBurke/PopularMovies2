@@ -34,8 +34,7 @@ public class DetailsFragment extends Fragment {
     private ImageButton mStarIcon;
 
     MovieData childMovieData;
-    private int existanceCheck;
-    private int checkTable;
+
 
     private AppDatabase mDb;
 
@@ -94,6 +93,15 @@ public class DetailsFragment extends Fragment {
         mDb.movieDao().insertMovie(childMovieData);
         int x = mDb.movieDao().findMovie();
         Log.v(LOG_TAG, "On Save Button is clicked" + Integer.toString(x));
+    }
+
+    public boolean searchDB(String myMovieID) {
+        Integer x = mDb.movieDao().checkExistance(childMovieData.getMyMovieId());
+        if (x == null){
+            return false;
+        } else{
+            return true;
+        }
     }
 
 
