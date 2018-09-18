@@ -77,7 +77,6 @@ public class VideosAdapter extends RecyclerView.Adapter <VideosAdapter.MyVideosV
 
         String myTitle = myMovieVideosData.get(position).getMyTrailorName();
         String myImgUrl = myMovieVideosData.get(position).returnYoutubeImageURL();
-        Log.v("VideoAdapter", myImgUrl);
         youTubeUrl = myMovieVideosData.get(position).returnYouTubeVideoURL();
 
         Picasso.with(myContext).load(myImgUrl).into(holder.myImageView);

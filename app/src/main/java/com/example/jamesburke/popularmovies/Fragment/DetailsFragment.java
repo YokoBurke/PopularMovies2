@@ -98,9 +98,18 @@ public class DetailsFragment extends Fragment {
     }
 
     public void onSaveButtonClicked() {
-        mDb.movieDao().insertMovie(childMovieData);
-        int x = mDb.movieDao().findMovie();
-        Log.v(LOG_TAG, "On Save Button is clicked" + Integer.toString(x));
+        Log.i(LOG_TAG, "Check again" + String.valueOf(existanceCheck));
+        if(existanceCheck == true) {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
+            Log.v(LOG_TAG, childMovieData.getMyTitle());
+            mDb.movieDao().deleteThisMovie(childMovieData.getMyMovieId());
+            existanceCheck = false;
+        } else {
+            mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
+            mDb.movieDao().insertMovie(childMovieData);
+            existanceCheck = true;
+        }
+
     }
 
     public boolean searchDB(int myMovieID) {

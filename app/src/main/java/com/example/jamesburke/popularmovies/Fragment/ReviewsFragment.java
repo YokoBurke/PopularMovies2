@@ -93,7 +93,6 @@ public class ReviewsFragment extends Fragment {
                 mReviewAdapter = new ReviewAdapter(getContext(), myMovieReviewsDataList );
                 String x = Integer.toString(mReviewAdapter.getItemCount());
 
-                Log.v(LOG_TAG, "Obtained review number:" + x);
                 rv.setAdapter(mReviewAdapter);
 
             }

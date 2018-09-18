@@ -59,7 +59,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.MyReviewVi
         holder.myAuthorTextView.setText(myAuthor);
         holder.myReviewTextView.setText(myReview);
 
-        Log.v(LOG_TAG,myAuthor + " " + myReview);
 
 
     }

@@ -46,8 +46,6 @@ public class VideosFragment extends Fragment {
 
         childActivity = (ChildActivity) getActivity();
         myMovieData = childActivity.getMyData();
-        String myTitle = myMovieData.getMyTitle();
-        Log.v(LOG_TAG, myTitle);
 
     }
 
@@ -94,9 +92,7 @@ public class VideosFragment extends Fragment {
 
                     }
                 });
-                String y = Integer.toString(myVideosAdapter.getItemCount());
 
-                Log.v(LOG_TAG, y);
                 mRecyclerView.setAdapter(myVideosAdapter);
             }
         }

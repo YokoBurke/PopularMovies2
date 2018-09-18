@@ -38,7 +38,6 @@ public class FavoriteActivity extends AppCompatActivity {
 
         mAdapter = new FavoriteAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
-        Log.v(LOG_TAG, "THISSSSSS " + Integer.toString(mAdapter.getItemCount()));
 
         mDb = AppDatabase.getsInstance(getApplicationContext());
 

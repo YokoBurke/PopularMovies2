@@ -16,11 +16,11 @@ public interface MovieDao {
     @Query("SELECT * FROM movie ORDER BY myId")
     List<MovieData> loadAllMovie();
 
-    @Query("SELECT COUNT(myID) FROM movie")
-    int findMovie();
-
     @Query("SELECT COUNT(myMovieId) FROM movie WHERE myMovieId = :findMovieID")
     Integer checkExistance(int findMovieID);
+
+    @Query("DELETE FROM movie WHERE myMovieId = :deleteMovieID")
+    void deleteThisMovie(int deleteMovieID);
 
     @Insert
     void insertMovie(MovieData movieData);
@@ -29,6 +29,6 @@ public interface MovieDao {
     void updateMovie(MovieData movieData);
 
     @Delete
-    void deleteMovie(MovieData movieData);
+    void deleteMovie(MovieData... movieData);
 
 }
