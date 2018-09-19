@@ -62,6 +62,10 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
         notifyDataSetChanged();
     }
 
+    public List<MovieData> getmMovieDatas() {
+        return mMovieDatas;
+    }
+
     class FavoriteViewHolder extends RecyclerView.ViewHolder {
 
         ImageView moviePosterView;

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.jamesburke.popularmovies.ChildActivity;
 import com.example.jamesburke.popularmovies.R;
 import com.example.jamesburke.popularmovies.data.AppDatabase;
+import com.example.jamesburke.popularmovies.utilities.AppExecutors;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.squareup.picasso.Picasso;
 
@@ -101,13 +102,27 @@ public class DetailsFragment extends Fragment {
         Log.i(LOG_TAG, "Check again" + String.valueOf(existanceCheck));
         if(existanceCheck == true) {
             mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
-            Log.v(LOG_TAG, childMovieData.getMyTitle());
-            mDb.movieDao().deleteThisMovie(childMovieData.getMyMovieId());
-            existanceCheck = false;
+
+            AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    mDb.movieDao().deleteThisMovie(childMovieData.getMyMovieId());
+                    existanceCheck = false;
+                }
+            });
+
         } else {
             mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
-            mDb.movieDao().insertMovie(childMovieData);
-            existanceCheck = true;
+
+            AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run(){
+                    mDb.movieDao().insertMovie(childMovieData);
+                    existanceCheck = true;
+                }
+            });
+
+
         }
 
     }
