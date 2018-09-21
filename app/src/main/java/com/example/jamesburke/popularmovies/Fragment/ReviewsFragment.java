@@ -40,7 +40,6 @@ public class ReviewsFragment extends Fragment {
     ChildActivity childActivity;
 
     public ReviewsFragment() {
-        // Required empty public constructor
     }
 
     @Override

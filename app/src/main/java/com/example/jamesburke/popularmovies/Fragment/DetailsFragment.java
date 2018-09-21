@@ -43,15 +43,12 @@ public class DetailsFragment extends Fragment {
     private AppDatabase mDb;
 
     public DetailsFragment() {
-        // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail, container, false);
-
     }
 
     @Override
@@ -82,7 +79,6 @@ public class DetailsFragment extends Fragment {
 
         if (childMovieData != null) {
             existanceCheck = searchDB(childMovieData.getMyMovieId());
-            Log.i(LOG_TAG, "YEEES" + String.valueOf(existanceCheck));
             Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
             Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
@@ -102,7 +98,6 @@ public class DetailsFragment extends Fragment {
     }
 
     public void onSaveButtonClicked() {
-        Log.i(LOG_TAG, "Check again" + String.valueOf(existanceCheck));
         if(existanceCheck == true) {
             mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
 
