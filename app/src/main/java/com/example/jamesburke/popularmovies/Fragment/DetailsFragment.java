@@ -1,6 +1,9 @@
 package com.example.jamesburke.popularmovies.Fragment;
 
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -128,13 +131,28 @@ public class DetailsFragment extends Fragment {
     }
 
     public boolean searchDB(int myMovieID) {
-        Integer x = mDb.movieDao().checkExistance(myMovieID);
-        if (x > 0){
-            return true;
-        } else{
-            return false;
-        }
+
+        final booleanHolder dataCheck = new booleanHolder();
+
+        final LiveData<Integer> x = mDb.movieDao().checkExistance(myMovieID);
+        x.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+
+                if (integer > 0){
+                    dataCheck.value = true;
+
+                } else{
+                    dataCheck.value = false;
+                }
+            }
+        });
+
+        return dataCheck.value;
     }
 
+    private static class booleanHolder {
+        public boolean value;
+    }
 
 }

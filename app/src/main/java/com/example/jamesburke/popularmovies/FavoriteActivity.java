@@ -1,5 +1,10 @@
 package com.example.jamesburke.popularmovies;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +15,7 @@ import android.util.Log;
 import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.AppExecutors;
 import com.example.jamesburke.popularmovies.utilities.FavoriteAdapter;
+import com.example.jamesburke.popularmovies.utilities.MainViewModel;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 
 import java.util.ArrayList;
@@ -57,7 +63,6 @@ public class FavoriteActivity extends AppCompatActivity {
                         int position = viewHolder.getAdapterPosition();
                         List<MovieData> movieData = mAdapter.getmMovieDatas();
                         mDb.movieDao().deleteThisMovie(movieData.get(position).getMyMovieId());
-                        retrieveMovies();
                     }
                 });
 
@@ -65,32 +70,27 @@ public class FavoriteActivity extends AppCompatActivity {
         }).attachToRecyclerView(mRecyclerView);
 
         mDb = AppDatabase.getsInstance(getApplicationContext());
+        setUpViewModel();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //mAdapter.setMovieDatas(mDb.movieDao().loadAllMovie());
-        retrieveMovies();
+
 
     }
 
-    private void retrieveMovies(){
+    private void setUpViewModel(){
 
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getMovieData().observe(this, new Observer<List<MovieData>>() {
             @Override
-            public void run() {
-                final List<MovieData> movieData = mDb.movieDao().loadAllMovie();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAdapter.setMovieDatas(movieData);
-                    }
-                });
+            public void onChanged(@Nullable List<MovieData> movieData) {
+                mAdapter.setMovieDatas(movieData);
             }
-        });
 
+                });
     }
 
 

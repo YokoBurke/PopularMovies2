@@ -1,5 +1,7 @@
 package com.example.jamesburke.popularmovies.data;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -14,10 +16,10 @@ import java.util.List;
 @Dao
 public interface MovieDao {
     @Query("SELECT * FROM movie ORDER BY myId")
-    List<MovieData> loadAllMovie();
+    LiveData<List<MovieData>> loadAllMovie();
 
     @Query("SELECT COUNT(myMovieId) FROM movie WHERE myMovieId = :findMovieID")
-    Integer checkExistance(int findMovieID);
+    LiveData<Integer> checkExistance(int findMovieID);
 
     @Query("DELETE FROM movie WHERE myMovieId = :deleteMovieID")
     void deleteThisMovie(int deleteMovieID);
