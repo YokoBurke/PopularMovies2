@@ -89,8 +89,6 @@ public class ReviewsFragment extends Fragment implements LoaderManager.LoaderCal
             @Override
             public void onStartLoading() {
 
-                Log.i(LOG_TAG, "Loader startinggggggg");
-
                 if (mReviewJson != null) {
                     deliverResult(mReviewJson);
                 } else {
