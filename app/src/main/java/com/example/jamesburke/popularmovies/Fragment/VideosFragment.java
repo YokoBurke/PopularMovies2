@@ -1,10 +1,15 @@
 package com.example.jamesburke.popularmovies.Fragment;
 
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.AsyncTaskLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,19 +23,20 @@ import com.example.jamesburke.popularmovies.utilities.JsonFragmentUtils;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.example.jamesburke.popularmovies.utilities.MovieVideosData;
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
+import com.example.jamesburke.popularmovies.utilities.ReviewAdapter;
 import com.example.jamesburke.popularmovies.utilities.VideosAdapter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class VideosFragment extends Fragment {
+public class VideosFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>{
 
     private static final String LOG_TAG = VideosFragment.class.getSimpleName();
 
     private MovieData myMovieData;
-    private obtainVideosTask mObtainVideosTask;
     private VideosAdapter myVideosAdapter;
     private ArrayList<MovieVideosData> myMovieVideosDataList;
 
@@ -39,6 +45,14 @@ public class VideosFragment extends Fragment {
 
     public VideosFragment() {
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstances){
+        super.onActivityCreated(savedInstances);
+        getLoaderManager().initLoader(0, null, this);
+        getLoaderManager().getLoader(0).startLoading();
+    }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,45 +71,67 @@ public class VideosFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.videos_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(childActivity));
 
-        mObtainVideosTask = new obtainVideosTask();
-        mObtainVideosTask.execute();
-
         return view;
     }
 
-    public class obtainVideosTask extends AsyncTask<URL, Void, String> {
 
-        @Override
-        protected String doInBackground(URL... urls) {
+    @NonNull
+    public Loader<String> onCreateLoader(int id, @Nullable final Bundle args){
+        return new AsyncTaskLoader<String>(getContext()) {
 
-            URL searchUrl = NetworkUtils.buildURL("videos", myMovieData.getMyMovieId());
-            ;
-            String reviewSearchResults = null;
-            try {
-                reviewSearchResults = NetworkUtils.getResponseFromHttpUrl(searchUrl);
-            } catch (IOException e) {
-                Log.e("Main Activity", "Problem making the HTTP request.", e);
+            String mVideoJson;
+
+            @Override
+            public void onStartLoading() {
+
+                if (mVideoJson != null) {
+                    deliverResult(mVideoJson);
+                } else {
+                    forceLoad();
+                }
             }
-            return reviewSearchResults;
+
+            @Nullable
+            @Override
+            public String loadInBackground() {
+
+                URL searchUrl = NetworkUtils.buildURL("videos", myMovieData.getMyMovieId());
+                String videosSearchResults = null;
+                try {
+                    videosSearchResults  = NetworkUtils.getResponseFromHttpUrl(searchUrl);
+                } catch (IOException e){
+                    Log.e("ReviewsFragment", "Problem making the HTTP request.", e);
+                }
+                return videosSearchResults;
+            }
+
+            @Override
+            public void deliverResult(String movieVideosJson){
+                mVideoJson = movieVideosJson;
+                super.deliverResult(movieVideosJson);
+            }
+        };
+    }
+
+
+    public void onLoadFinished(@NonNull Loader<String> loader, String data) {
+        if(data == "") {
+            mRecyclerView.setVisibility(View.GONE);
+            return;
+        }else{
+            mRecyclerView.setVisibility(View.VISIBLE);
+            myMovieVideosDataList = JsonFragmentUtils.parseMovieVideosData(data);
         }
 
-        @Override
-        protected void onPostExecute(String myVideoSearchResult) {
-
-            if (myVideoSearchResult != null && !myVideoSearchResult.equals("")) {
-                myMovieVideosDataList = JsonFragmentUtils.parseMovieVideosData(myVideoSearchResult);
-                Log.i(LOG_TAG, myVideoSearchResult);
-
-                myVideosAdapter = new VideosAdapter(getContext(), myMovieVideosDataList, new VideosAdapter.ListItemClickListener() {
-                    @Override
-                    public void onListItemClick(int clickedItemIndex) {
-
-                    }
-                });
-
-                mRecyclerView.setAdapter(myVideosAdapter);
+        myVideosAdapter = new VideosAdapter(getContext(), myMovieVideosDataList, new VideosAdapter.ListItemClickListener(){
+            @Override
+            public void onListItemClick(int clickedItemIndex){
             }
-        }
+        });
+        mRecyclerView.setAdapter(myVideosAdapter);
+    }
+
+    public void onLoaderReset(@NonNull Loader<String> loader) {
 
     }
 }
