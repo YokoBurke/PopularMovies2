@@ -25,8 +25,6 @@ public class NetworkUtils {
     final static String API_URL = "";
 
 
-
-
     public static URL buildURL(String selectedData, int movieID) {
 
         String selectedBase = "";
