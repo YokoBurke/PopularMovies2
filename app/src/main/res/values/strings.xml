@@ -5,6 +5,7 @@
     <string name="menu_2">Popular</string>
     <string name="menu_3">Upcoming</string>
     <string name="menu_4">Now Playing</string>
+    <string name="menu_5">My Favorites</string>
 
     <string name="child_release_date_subject">Release Date: </string>
     <string name="child_vote_average_subject">Vote Average: </string>

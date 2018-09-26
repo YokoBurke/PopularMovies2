@@ -1,5 +1,6 @@
 package com.example.jamesburke.popularmovies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -165,6 +166,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Log.i("Main", selectedData);
                 setTitle("Now Playing");
                 getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
+                return true;
+            case R.id.my_favorites:
+                Intent intent = new Intent(this, FavoriteActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onContextItemSelected(item);
