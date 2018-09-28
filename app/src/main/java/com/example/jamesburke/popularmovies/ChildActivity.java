@@ -6,9 +6,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 
 import com.example.jamesburke.popularmovies.Fragment.SimpleFragmentPagerAdapter;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
@@ -53,25 +50,6 @@ public class ChildActivity extends AppCompatActivity {
         return childMovieData;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.childmenu, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.child_favorite:
-                Intent intent = new Intent(ChildActivity.this, FavoriteActivity.class);
-                startActivity(intent);
-                return true;
-
-            default:
-                return super.onContextItemSelected(item);
-        }
-    }
 
 }

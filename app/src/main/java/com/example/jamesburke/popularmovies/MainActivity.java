@@ -1,6 +1,7 @@
 package com.example.jamesburke.popularmovies;
 
-import android.content.Intent;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.jamesburke.popularmovies.data.AppDatabase;
 import com.example.jamesburke.popularmovies.utilities.JsonUtils;
+import com.example.jamesburke.popularmovies.utilities.MainViewModel;
 import com.example.jamesburke.popularmovies.utilities.MovieAdapter;
 import com.example.jamesburke.popularmovies.utilities.MovieData;
 import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
@@ -25,6 +28,7 @@ import com.example.jamesburke.popularmovies.utilities.NetworkUtils;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
@@ -34,10 +38,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ArrayList<MovieData> myMovieData;
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MovieAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     private TextView emptyView;
+    private AppDatabase mDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,12 +177,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 getSupportLoaderManager().restartLoader(MOVIE_SEARCH_LOADER, null, this);
                 return true;
             case R.id.my_favorites:
-                Intent intent = new Intent(this, FavoriteActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(this, FavoriteActivity.class);
+                //startActivity(intent);
+                mDb = AppDatabase.getsInstance(getApplicationContext());
+                setUpViewModel();
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
 
     }
+
+
+    private void setUpViewModel(){
+
+        MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        viewModel.getMovieData().observe(this, new Observer<List<MovieData>>() {
+            @Override
+            public void onChanged(@Nullable List<MovieData> movieData) {
+                mAdapter.setMovieDatas(movieData);
+            }
+
+        });
+    }
+
 }
