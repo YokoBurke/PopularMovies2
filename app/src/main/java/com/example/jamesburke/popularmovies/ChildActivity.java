@@ -46,7 +46,7 @@ public class ChildActivity extends AppCompatActivity {
 
     }
     public MovieData getMyData() {
-        //https://stackoverflow.com/questions/12739909/send-data-from-activity-to-fragment-in-android
+       
         return childMovieData;
     }
 
