@@ -46,7 +46,7 @@ public class ChildActivity extends AppCompatActivity {
 
     }
     public MovieData getMyData() {
-       
+
         return childMovieData;
     }
 

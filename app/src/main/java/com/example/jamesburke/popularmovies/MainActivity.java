@@ -179,6 +179,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case R.id.my_favorites:
                 //Intent intent = new Intent(this, FavoriteActivity.class);
                 //startActivity(intent);
+                setTitle("Favorites");
                 mDb = AppDatabase.getsInstance(getApplicationContext());
                 setUpViewModel();
                 return true;
