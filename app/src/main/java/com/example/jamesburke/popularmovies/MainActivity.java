@@ -44,6 +44,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        android.support.v7.widget.Toolbar myToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(myToolbar);
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.my_recycle_view);
         mRecyclerView.setHasFixedSize(true);
 

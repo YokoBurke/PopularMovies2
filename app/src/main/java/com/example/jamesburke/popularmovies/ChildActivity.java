@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +24,11 @@ public class ChildActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_child);
 
+        android.support.v7.widget.Toolbar myToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.child_toolbar);
+        setSupportActionBar(myToolbar);
+
+
+
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         SimpleFragmentPagerAdapter adapter = new SimpleFragmentPagerAdapter(this, getSupportFragmentManager());
@@ -36,6 +42,10 @@ public class ChildActivity extends AppCompatActivity {
             childMovieData = (MovieData) childIntent.getParcelableExtra(Intent.EXTRA_TEXT);
 
         }
+
+       getSupportActionBar().setTitle(childMovieData.getMyTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Log.i("Child Activ", childMovieData.getMyTitle());
 
     }
     public MovieData getMyData() {
