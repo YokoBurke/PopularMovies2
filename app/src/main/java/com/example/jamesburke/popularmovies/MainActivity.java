@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     private void setUpViewModel(){
-
         MainViewModel viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         viewModel.getMovieData().observe(this, new Observer<List<MovieData>>() {
             @Override
