@@ -22,7 +22,7 @@ public class NetworkUtils {
     final static String MOVIE_NOW_PLAYING_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=";
 
     final static String MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/";
-    final static String API_URL = "";
+    final static String API_URL = "73e4a66f623745e5138464b4ac6fb93b";
 
     public static URL buildURL(String selectedData, int movieID) {
 

@@ -1,10 +1,8 @@
 package com.example.jamesburke.popularmovies.Fragment;
 
 
-import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -49,6 +47,8 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail, container, false);
+
+
     }
 
     @Override
@@ -78,7 +78,10 @@ public class DetailsFragment extends Fragment {
         childMovieData = childActivity.getMyData();
 
         if (childMovieData != null) {
-            existanceCheck = searchDB(childMovieData.getMyMovieId());
+            //existanceCheck = searchDB(childMovieData.getMyMovieId());
+            checkTableTask task = new checkTableTask();
+            task.execute();
+            Log.i("DetailsFragment", String.valueOf(existanceCheck));
             Picasso.with(c).load(childMovieData.getMyPosterUrl()).into(mPoster);
             Picasso.with(c).load(childMovieData.getMyBDUrl()).into(mBackDrop);
 
@@ -90,11 +93,7 @@ public class DetailsFragment extends Fragment {
             Log.v("DetailsFragment", "ChildActivity is null");
         }
 
-        if(existanceCheck == true) {
-            mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
-        } else {
-            mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
-        }
+
     }
 
     public void onSaveButtonClicked() {
@@ -125,29 +124,59 @@ public class DetailsFragment extends Fragment {
 
     }
 
-    public boolean searchDB(int myMovieID) {
+  /*  public boolean searchDB(int myMovieID) {
 
         final booleanHolder dataCheck = new booleanHolder();
-
         final LiveData<Integer> x = mDb.movieDao().checkExistance(myMovieID);
-        x.observe(this, new Observer<Integer>() {
+            x.observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
 
                 if (integer > 0){
                     dataCheck.value = true;
+                    Log.i("DetailsFragmentsss", integer.toString());
+                    Log.i("DetailsFragmentyyyyy", String.valueOf(dataCheck.value));
 
-                } else{
+
+                } else if (integer <= 0) {
                     dataCheck.value = false;
+                    Log.i("DetailsFragmentsssssss", integer.toString());
                 }
             }
         });
 
+        Log.i("DetailsFragmentxxxxx", String.valueOf(dataCheck.value));
         return dataCheck.value;
+
     }
 
     private static class booleanHolder {
         public boolean value;
+    }  */
+
+    private class checkTableTask extends AsyncTask<Integer, Integer, Boolean>{
+
+        @Override
+        protected Boolean doInBackground(Integer... integers) {
+            Boolean checkResult;
+            Integer checkMovieID = mDb.movieDao().initialCheckExistance(childMovieData.getMyMovieId());
+            if (checkMovieID > 0){
+                checkResult = true;
+            } else {
+                checkResult = false;
+            }
+            return checkResult;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean checkResult){
+            existanceCheck = checkResult;
+            if(existanceCheck == true) {
+                mStarIcon.setImageResource(R.drawable.baseline_favorite_black_24);
+            } else {
+                mStarIcon.setImageResource(R.drawable.baseline_favorite_border_black_24);
+            }
+        }
     }
 
 }
